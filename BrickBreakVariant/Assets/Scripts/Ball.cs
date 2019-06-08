@@ -14,8 +14,9 @@ public class Ball : MonoBehaviour
 
     void Respawn()
     {
-        transform.position = Vector3.zero;
-        GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
+        //transform.position = Vector3.zero;
+        //GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
+        GetComponent<Rigidbody>().velocity = Random.insideUnitCircle.normalized * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
