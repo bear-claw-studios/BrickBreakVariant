@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public int numBricks;
-    public Text scoreText;
+    public Text scoreText, gameOverText;
 
     // Start is called before the first frame update
     void Start()
     {
         UpdateScore();
+        gameOverText.text = "";
     }
 
     // Update is called once per frame
@@ -37,6 +38,6 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
-
+        gameOverText.text = "Level Complete!";
     }
 }
