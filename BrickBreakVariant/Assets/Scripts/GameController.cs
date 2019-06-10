@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreText.text = "Bricks: " + numBricks.ToString();
+        scoreText.text = "Bricks: " + numBricks;
     }
 
     void GameOver()

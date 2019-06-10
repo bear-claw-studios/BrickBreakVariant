@@ -26,4 +26,13 @@ public class Brick : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            gc.BrickDestroyed();
+            Destroy(gameObject);
+        }
+    }
 }
