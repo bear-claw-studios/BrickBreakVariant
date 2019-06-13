@@ -5,6 +5,7 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     public GameController gc;
+    public int toughness = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +23,12 @@ public class Brick : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            gc.UpdateScore();
-            Destroy(gameObject);
+            if(toughness > 0){
+                toughness--;
+            } else {
+                gc.UpdateScore();
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -31,8 +36,12 @@ public class Brick : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            gc.BrickDestroyed();
-            Destroy(gameObject);
+            if(toughness > 0){
+                toughness--;
+            } else {
+                gc.UpdateScore();
+                Destroy(gameObject);
+            }
         }
     }
 }

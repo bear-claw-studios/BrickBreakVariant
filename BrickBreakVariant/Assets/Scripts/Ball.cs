@@ -25,6 +25,15 @@ public class Ball : MonoBehaviour
             Respawn();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Black Hole"))
+        {
+            // Respawn();
+            Destroy(gameObject);
+        }
+    }
+
     /*
      * 
      * 
