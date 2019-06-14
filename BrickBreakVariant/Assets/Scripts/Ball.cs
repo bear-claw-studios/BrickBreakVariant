@@ -31,7 +31,7 @@ public class Ball : MonoBehaviour
     {
         transform.position = startPos;
         //GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
-        GetComponent<Rigidbody>().velocity = Random.insideUnitCircle.normalized * speed; 
+        rb.velocity = Random.insideUnitCircle.normalized * speed; 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,21 +43,30 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if(collision.gameObject.CompareTag("Gravity Field"))
+        if(collider.gameObject.CompareTag("Gravity Field"))
         {
             Debug.Log("Trigger entered");
             //Distance is the black hole's position (at the origin) minus the ball's current 
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             Vector3 distance = Vector3.zero - transform.position;
 
-            rb.AddForce(distance.normalized * gravityForce);
+            //rb.AddForce(distance.normalized * gravityForce);
+            rb.velocity = distance.normalized * gravityForce;
         }
-        else if (collision.gameObject.CompareTag("Black Hole"))
+        else if (collider.gameObject.CompareTag("Black Hole"))
         {
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             Respawn();
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if(collider.gameObject.CompareTag("Gravity Field"))
+        {
+            rb.velocity = rb.velocity.normalized * speed;
         }
     }
 
