@@ -220,6 +220,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &57092690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57092691}
+  - component: {fileID: 57092692}
+  m_Layer: 0
+  m_Name: Gravity Field
+  m_TagString: Gravity Field
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57092691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57092690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 357818533}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &57092692
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57092690}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!43 &72865593
 Mesh:
   m_ObjectHideFlags: 0
@@ -731,6 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &250537650
 Mesh:
   m_ObjectHideFlags: 0
@@ -1000,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &288547345
 Mesh:
   m_ObjectHideFlags: 0
@@ -1263,6 +1309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323792481}
+  - component: {fileID: 323792482}
   m_Layer: 0
   m_Name: First Ring
   m_TagString: Untagged
@@ -1288,6 +1335,20 @@ Transform:
   m_Father: {fileID: 1125031454}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323792482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323792480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0febe833b8dc5df45b6bb1a0a0d6a9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 2
+  reverse: 0
 --- !u!1 &326455650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,6 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!1 &357818532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,7 +2394,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 57092691}
   m_Father: {fileID: 454574857}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2606,6 +2669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &454448132
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3490,7 +3554,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 454574857}
-  - component: {fileID: 454574858}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -3515,19 +3578,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &454574858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454574856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0febe833b8dc5df45b6bb1a0a0d6a9b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateSpeed: 2
 --- !u!1 &490099389
 GameObject:
   m_ObjectHideFlags: 0
@@ -3668,6 +3718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!64 &535952879
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4591,6 +4642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &542826185
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5839,6 +5891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!64 &754451899
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6912,6 +6965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &851627046
 Mesh:
   m_ObjectHideFlags: 0
@@ -8195,6 +8249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &878486270
 Mesh:
   m_ObjectHideFlags: 0
@@ -8406,6 +8461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &958764531
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9404,6 +9460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  gravityForce: 100
   startPos: {x: 0, y: 0, z: 0}
 --- !u!43 &1020360100
 Mesh:
@@ -9616,6 +9673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &1117879423
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10831,6 +10889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &1216358251
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12187,6 +12246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1646845338}
+  - component: {fileID: 1646845339}
   m_Layer: 0
   m_Name: Second Ring
   m_TagString: Untagged
@@ -12212,6 +12272,20 @@ Transform:
   m_Father: {fileID: 1125031454}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.39}
+--- !u!114 &1646845339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646845337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0febe833b8dc5df45b6bb1a0a0d6a9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 2
+  reverse: 1
 --- !u!1 &1688521687
 GameObject:
   m_ObjectHideFlags: 0
@@ -13135,6 +13209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &1696039728
 Mesh:
   m_ObjectHideFlags: 0
@@ -14221,6 +14296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!1 &1723726926
 GameObject:
   m_ObjectHideFlags: 0
@@ -14269,6 +14345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &1723726929
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15192,6 +15269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!64 &1780720194
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16115,6 +16193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 2
 --- !u!64 &1787156297
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17305,6 +17384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!43 &1896122869
 Mesh:
   m_ObjectHideFlags: 0
@@ -17477,6 +17557,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1939263704}
+  - component: {fileID: 1939263705}
   m_Layer: 0
   m_Name: Third Ring
   m_TagString: Untagged
@@ -17505,6 +17586,20 @@ Transform:
   m_Father: {fileID: 1125031454}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1939263705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939263703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0febe833b8dc5df45b6bb1a0a0d6a9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 2
+  reverse: 0
 --- !u!1 &2041928739
 GameObject:
   m_ObjectHideFlags: 0
@@ -29200,6 +29295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  toughness: 1
 --- !u!64 &2100462503
 MeshCollider:
   m_ObjectHideFlags: 0

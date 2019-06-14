@@ -7,6 +7,7 @@ TagManager:
   - Stage
   - Black Hole
   - Ball
+  - Gravity Field
   layers:
   - Default
   - TransparentFX
