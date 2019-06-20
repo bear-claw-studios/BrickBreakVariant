@@ -3,46 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameControllerColorChange : MonoBehaviour
 {
     public int numBricks;
-    public Text scoreText, gameOverText;
+    public int score = 0;
+    public Text scoreText, gameOverText, countText;
 
     //Reference to the ball script
-    public Ball ball;
+    public BallColorChanger ball;
+
+    //GameObject stage;
 
     // Start is called before the first frame update
     void Start()
     {
-        ball = FindObjectOfType<Ball>();
-        UpdateScore();
+        ball = FindObjectOfType<BallColorChanger>();
+        UpdateScore(0);
         gameOverText.text = "";
+        //LoadLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void LoadLevel()
+    {
+        //Instantiate(stage);
     }
 
     public void BrickDestroyed()
     {
         numBricks--;
-        UpdateScore();
-        if(numBricks == 0)
+        //UpdateScore();
+        if (numBricks == 0)
         {
             LevelComplete();
         }
     }
 
-    public void UpdateScore()
+    public void UpdateScore(int streak)
     {
-        scoreText.text = "Bricks: " + numBricks;
+        countText.text = "Bricks: " + numBricks;
+        score += 100 * streak;
+        scoreText.text = "Score: " + score;
     }
 
     void LevelComplete()
     {
         gameOverText.text = "Level Complete!";
+        LoadLevel();
+        //Reload level
     }
 
     public void GameOver()

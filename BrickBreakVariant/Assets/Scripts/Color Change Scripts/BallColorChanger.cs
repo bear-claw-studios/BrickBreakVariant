@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Ball : MonoBehaviour
+public class BallColorChanger : MonoBehaviour
 {
     Rigidbody rb;
 
@@ -14,14 +15,20 @@ public class Ball : MonoBehaviour
     Renderer rend;
     Color defaultColor;
 
-    GameController gc;
+    GameControllerColorChange gc;
+
+    public bool black, white;
+
+    public int streak = 0;
+
+    public Text streakText;
 
     //ParticleSystem ps;
 
     // Start is called before the first frame update
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
+        gc = FindObjectOfType<GameControllerColorChange>();
         rb = GetComponent<Rigidbody>();
         startPos = transform.position;
         rend = GetComponent<Renderer>();
@@ -29,6 +36,8 @@ public class Ball : MonoBehaviour
         //ps = GetComponent<ParticleSystem>();
         //ps.Pause();
         defaultColor = rend.material.color;
+        white = true; black = false;
+        UpdateStreak();
     }
 
     void Update()
@@ -36,15 +45,33 @@ public class Ball : MonoBehaviour
         //In case it gets stuck on the wall...
         if (Input.GetKeyDown(KeyCode.R))
             Respawn();
+
+        if (Input.GetKeyDown(KeyCode.C))
+            ChangeColor();
     }
 
     public void Respawn()
     {
         rend.material.SetColor("_Color", Color.white);
+        white = true; black = false;
         gameObject.SetActive(true);
         transform.position = startPos;
         //GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
-        rb.velocity = Random.insideUnitCircle.normalized * speed; 
+        rb.velocity = Random.insideUnitCircle.normalized * speed;
+    }
+
+    void ChangeColor()
+    {
+        if(white)
+        {
+            rend.material.SetColor("_Color", Color.black);
+            white = false; black = true;
+        }
+        else if(black)
+        {
+            rend.material.SetColor("_Color", Color.white);
+            white = true; black = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,7 +85,7 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if(collider.gameObject.CompareTag("Gravity Field"))
+        if (collider.gameObject.CompareTag("Gravity Field"))
         {
             //Debug.Log("Trigger entered");
             rend.material.SetColor("_Color", Color.black);
@@ -81,12 +108,32 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if(collider.gameObject.CompareTag("Gravity Field"))
+        if (collider.gameObject.CompareTag("Gravity Field"))
         {
             rend.material.SetColor("_Color", defaultColor);
             //ps.Stop();
             rb.velocity = rb.velocity.normalized * speed;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Brick"))
+        {
+            streak += 1;
+            UpdateStreak();
+        }
+        else if (collision.gameObject.CompareTag("Stage"))
+        {
+            //gc.UpdateScore(streak);
+            UpdateStreak();
+            streak = 0;                     
+        }
+    }
+
+    void UpdateStreak()
+    {
+        streakText.text = "Streak: " + streak + "x";
     }
 
     /*

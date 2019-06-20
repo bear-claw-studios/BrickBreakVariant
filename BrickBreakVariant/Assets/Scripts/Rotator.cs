@@ -30,6 +30,7 @@ public class Rotator : MonoBehaviour
                 transform.Rotate(0.0f, 0.0f, -(input * rotateSpeed));
             }
         }
+        
         /*
         if(touchInput.deltaPosition != Vector2.zero)
         {
@@ -43,7 +44,7 @@ public class Rotator : MonoBehaviour
             {
                 transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
             }
-        }
+        } 
         */
     }
 }

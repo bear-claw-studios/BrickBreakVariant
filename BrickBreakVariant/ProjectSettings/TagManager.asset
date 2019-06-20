@@ -8,6 +8,9 @@ TagManager:
   - Black Hole
   - Ball
   - Gravity Field
+  - Brick
+  - Black
+  - White
   layers:
   - Default
   - TransparentFX
