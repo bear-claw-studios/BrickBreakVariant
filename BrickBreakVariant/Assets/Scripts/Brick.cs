@@ -7,16 +7,22 @@ public class Brick : MonoBehaviour
     public GameController gc;
     public int toughness;
 
+    Renderer rend;
+
     // Start is called before the first frame update
     void Start()
     {
+        rend = GetComponent<Renderer>();
         gc = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(toughness == 0)
+        {
+            rend.material.SetColor("_Color", Color.red);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -8,9 +8,13 @@ public class GameController : MonoBehaviour
     public int numBricks;
     public Text scoreText, gameOverText;
 
+    //Reference to the ball script
+    public Ball ball;
+
     // Start is called before the first frame update
     void Start()
     {
+        ball = FindObjectOfType<Ball>();
         UpdateScore();
         gameOverText.text = "";
     }
@@ -27,7 +31,7 @@ public class GameController : MonoBehaviour
         UpdateScore();
         if(numBricks == 0)
         {
-            GameOver();
+            LevelComplete();
         }
     }
 
@@ -36,8 +40,21 @@ public class GameController : MonoBehaviour
         scoreText.text = "Bricks: " + numBricks;
     }
 
-    void GameOver()
+    void LevelComplete()
     {
         gameOverText.text = "Level Complete!";
+    }
+
+    public void GameOver()
+    {
+        gameOverText.text = "Whoops";
+        StartCoroutine(Wait());
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3.0f);
+        ball.Respawn();
+        gameOverText.text = "";
     }
 }
