@@ -51,17 +51,27 @@ public class GameControllerColorChange : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
+    public void UpdateScore(int streak, Transform location)
+    {
+        Debug.Log(location.position);
+        countText.text = "Bricks: " + numBricks;
+        score += 100 * streak;
+        scoreText.text = "Score: " + score;
+    }
+
     void LevelComplete()
     {
         gameOverText.text = "Level Complete!";
-        LoadLevel();
+        //LoadLevel();
         //Reload level
     }
 
     public void GameOver()
     {
-        gameOverText.text = "Whoops";
-        StartCoroutine(Wait());
+        gameOverText.text = "Game Over";
+        //StartCoroutine(Wait());
+
+        //Insert eventual ad 
     }
 
     IEnumerator Wait()
@@ -69,5 +79,11 @@ public class GameControllerColorChange : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         ball.Respawn();
         gameOverText.text = "";
+    }
+
+    public void LifeLost()
+    {
+        gameOverText.text = "Whoops";
+        StartCoroutine(Wait());
     }
 }

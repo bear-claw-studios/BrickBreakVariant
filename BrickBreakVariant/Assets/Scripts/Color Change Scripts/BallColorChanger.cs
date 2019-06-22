@@ -19,9 +19,11 @@ public class BallColorChanger : MonoBehaviour
 
     public bool black, white;
 
+    public int lives = 3;
+
     public int streak = 0;
 
-    public Text streakText;
+    public Text streakText, livesText;
 
     //ParticleSystem ps;
 
@@ -38,6 +40,7 @@ public class BallColorChanger : MonoBehaviour
         defaultColor = rend.material.color;
         white = true; black = false;
         UpdateStreak();
+        livesText.text = "Lives: " + lives; 
     }
 
     void Update()
@@ -57,7 +60,8 @@ public class BallColorChanger : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = startPos;
         //GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
-        rb.velocity = Random.insideUnitCircle.normalized * speed;
+        //rb.velocity = Random.insideUnitCircle.normalized * speed;
+        rb.velocity = Vector3.down * speed;
     }
 
     void ChangeColor()
@@ -102,7 +106,12 @@ public class BallColorChanger : MonoBehaviour
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             //Respawn();
             gameObject.SetActive(false);
-            gc.GameOver();
+            lives--;
+            UpdateLives();
+            if (lives == 0)
+                gc.GameOver();
+            else
+                gc.LifeLost();
         }
     }
 
@@ -134,6 +143,11 @@ public class BallColorChanger : MonoBehaviour
     void UpdateStreak()
     {
         streakText.text = "Streak: " + streak + "x";
+    }
+
+    void UpdateLives()
+    {
+        livesText.text = "Lives: " + lives;
     }
 
     /*

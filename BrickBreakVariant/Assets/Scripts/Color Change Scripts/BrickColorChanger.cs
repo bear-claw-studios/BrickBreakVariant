@@ -17,12 +17,12 @@ public class BrickColorChanger : MonoBehaviour
         rend = GetComponent<Renderer>();
         gc = FindObjectOfType<GameControllerColorChange>();
 
-        if(gameObject.CompareTag("Black"))
+        if (gameObject.CompareTag("Black"))
         {
             black = true;
             white = false;
         }
-        if(gameObject.CompareTag("White"))
+        if (gameObject.CompareTag("White"))
         {
             black = false;
             white = true;
@@ -60,18 +60,27 @@ public class BrickColorChanger : MonoBehaviour
         {
             BallColorChanger ball = collision.gameObject.GetComponent<BallColorChanger>();
 
-            if ((black && ball.black) || white && ball.white)
+            if (toughness == 0)
             {
-                if (toughness > 0)
-                {
+                gc.BrickDestroyed();
+                gc.UpdateScore(ball.streak, collision.gameObject.transform);
+                Destroy(gameObject);
+            }
+            else if ((black && ball.black) || white && ball.white)
+            {
+                //if (toughness > 0)
+                //{
                     toughness--;
-                }
-                else
-                {
-                    gc.BrickDestroyed();
-                    gc.UpdateScore(ball.streak);
-                    Destroy(gameObject);
-                }
+                    //}
+                    /*
+                    else
+                    {
+                        gc.BrickDestroyed();
+                        gc.UpdateScore(ball.streak, collision.gameObject.transform);
+                        Destroy(gameObject);
+                    }
+                    */
+                //}
             }
         }
     }
