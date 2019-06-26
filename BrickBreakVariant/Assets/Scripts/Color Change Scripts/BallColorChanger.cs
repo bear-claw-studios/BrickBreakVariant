@@ -23,7 +23,11 @@ public class BallColorChanger : MonoBehaviour
 
     public int streak = 0;
 
+    public int wallHits = 0;
+
     public Text streakText, livesText;
+
+    public GameObject blackHole;
 
     //ParticleSystem ps;
 
@@ -51,6 +55,14 @@ public class BallColorChanger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
             ChangeColor();
+
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+        Debug.DrawRay(transform.position, forward, Color.green);
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void Respawn()
@@ -61,7 +73,8 @@ public class BallColorChanger : MonoBehaviour
         transform.position = startPos;
         //GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle.normalized * speed;
         //rb.velocity = Random.insideUnitCircle.normalized * speed;
-        rb.velocity = Vector3.down * speed;
+        //rb.velocity = Vector3.down * speed;
+        rb.AddForce(transform.forward * speed);
     }
 
     void ChangeColor()
@@ -92,7 +105,7 @@ public class BallColorChanger : MonoBehaviour
         if (collider.gameObject.CompareTag("Gravity Field"))
         {
             //Debug.Log("Trigger entered");
-            rend.material.SetColor("_Color", Color.black);
+            //rend.material.SetColor("_Color", Color.black);
             //ps.Play();
             //Distance is the black hole's position (at the origin) minus the ball's current 
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -129,16 +142,28 @@ public class BallColorChanger : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Brick"))
         {
-            streak += 1;
+            streak++;
+            wallHits = 0;
             UpdateStreak();
         }
         else if (collision.gameObject.CompareTag("Stage"))
         {
             //gc.UpdateScore(streak);
             UpdateStreak();
-            streak = 0;                     
+            streak = 0;
+            wallHits++;
+
+            if(wallHits >= 3)
+            {
+                Vector3 currentPos = transform.position;
+                Vector3 returnDir = -(Vector3.zero - currentPos);         
+                transform.LookAt(blackHole.transform);
+                rb.AddForce(returnDir.normalized * speed);
+            }
         }
     }
+
+
 
     void UpdateStreak()
     {
