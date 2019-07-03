@@ -19,7 +19,14 @@ public class LevelLoader : MonoBehaviour
                         "R51", "R52", "R53", "R54", "R55", "R56", "R57", "R58", "R59", "R510", "R511", "R512",
                         "R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615",                        
                         };
-    string[] level = {};
+    string[][] levelOne = {
+        new string[] {"N11","N22","N33"}, //isFade
+        new string[] {"N12","N13","N14"}, //isMatch-Black
+        new string[] {"N15","N16"}, //isMatch-White
+        new string[] {"N41","N42","N44", "N11","N22","N33"}, //toughness 0
+        new string[] {"N51","N22"}, //toughness 1
+        new string[] {"R61"} //toughness 2
+    };
 
     //for each element in brick array check if exists in level array
     //search for game object with [element] name
@@ -28,16 +35,62 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(string element in bricks){
-            if(Array.Exists(level, el => el == element)){
-                
-            }    
-        }        
+        LoadLevel();
+    //     foreach(string element in bricks){
+    //         if(Array.Exists(level, el => el == element)){
+       
+    // }
+    //         }    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+            LoadLevel();        
+    }
+
+    void LoadLevel(){
+        foreach(string element in bricks){
+            GameObject brick;
+            brick = GameObject.Find(element);
+            BrickController controller = brick.GetComponent<BrickController>();
+            //isFade
+            if(Array.Exists(levelOne[0], el => el == element)){    
+                controller.isActive = true;
+                controller.isFade = true;
+            }
+            //isMatch-Black
+            if(Array.Exists(levelOne[1], el => el == element)){
+                controller.isActive = true;
+                controller.isMatch = true;
+                controller.black = true;
+                controller.white = false;
+
+            }
+            //isMatch-White
+            if(Array.Exists(levelOne[2], el => el == element)){
+                controller.isActive = true;
+                controller.isMatch = true;
+                controller.black = false;
+                controller.white = true;
+            }
+            //toughness 0
+            if(Array.Exists(levelOne[3], el => el == element)){    
+                controller.isActive = true;
+                controller.toughness = 0;
+            }
+            //toughness 1
+            if(Array.Exists(levelOne[4], el => el == element)){    
+                controller.isActive = true;
+                controller.toughness = 1;
+            }
+            //toughness 2
+            if(Array.Exists(levelOne[5], el => el == element)){    
+                controller.isActive = true;
+                controller.toughness = 2;
+            }
+
+        }         
     }
 }
