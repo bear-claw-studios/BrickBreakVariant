@@ -29,6 +29,8 @@ public class BallColorChanger : MonoBehaviour
 
     public GameObject blackHole;
 
+    public float maxSpeed;
+
     //ParticleSystem ps;
 
     // Start is called before the first frame update
@@ -56,13 +58,18 @@ public class BallColorChanger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
             ChangeColor();
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-        Debug.DrawRay(transform.position, forward, Color.green);
+        /*
+        if(rb.velocity >= maxSpeed)
+        {
+            rb.velocity = maxSpeed;
+        }
+        */
     }
 
     private void FixedUpdate()
     {
-        
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+        Debug.DrawRay(transform.position, forward, Color.green);
     }
 
     public void Respawn()
@@ -102,6 +109,7 @@ public class BallColorChanger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        /*
         if (collider.gameObject.CompareTag("Gravity Field"))
         {
             //Debug.Log("Trigger entered");
@@ -114,7 +122,8 @@ public class BallColorChanger : MonoBehaviour
             //rb.AddForce(distance.normalized * gravityForce);
             rb.velocity = distance.normalized * gravityForce;
         }
-        else if (collider.gameObject.CompareTag("Black Hole"))
+        */
+        /*else*/ if (collider.gameObject.CompareTag("Black Hole"))
         {
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
             //Respawn();
@@ -158,7 +167,8 @@ public class BallColorChanger : MonoBehaviour
                 Vector3 currentPos = transform.position;
                 Vector3 returnDir = -(Vector3.zero - currentPos);         
                 transform.LookAt(blackHole.transform);
-                rb.AddForce(returnDir.normalized * speed);
+                //rb.AddForce(returnDir.normalized * speed);
+                rb.AddForce(transform.forward * speed);
             }
         }
     }

@@ -7,7 +7,13 @@ public class GameControllerColorChange : MonoBehaviour
 {
     public int numBricks;
     public int score = 0;
-    public Text scoreText, gameOverText, countText;
+    public int highScore = 0;
+    public Text scoreText, gameOverText, countText, highScoreText;
+    Vector3 prevVelocity;
+
+    AudioSource audio;
+
+    public GameObject pauseMenu;
 
     //Reference to the ball script
     public BallColorChanger ball;
@@ -20,11 +26,24 @@ public class GameControllerColorChange : MonoBehaviour
         ball = FindObjectOfType<BallColorChanger>();
         UpdateScore(0);
         gameOverText.text = "";
+        highScoreText.text = "High score: " + highScore;
+        audio = GetComponent<AudioSource>();
         //LoadLevel();
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        audio.volume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
     {
 
     }
@@ -49,6 +68,12 @@ public class GameControllerColorChange : MonoBehaviour
         countText.text = "Bricks: " + numBricks;
         score += 100 * streak;
         scoreText.text = "Score: " + score;
+
+        if(score > highScore)
+        {
+            highScore = score;
+            highScoreText.text = "High score: " + highScore;
+        }
     }
 
     public void UpdateScore(int streak, Transform location)
@@ -85,5 +110,20 @@ public class GameControllerColorChange : MonoBehaviour
     {
         gameOverText.text = "Whoops";
         StartCoroutine(Wait());
+    }
+
+    public void PauseGame()
+    {
+        prevVelocity = ball.GetComponent<Rigidbody>().velocity;
+        ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        audio.Pause();
+        pauseMenu.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        ball.GetComponent<Rigidbody>().velocity = prevVelocity;
+        audio.UnPause();
+        pauseMenu.SetActive(false);
     }
 }
