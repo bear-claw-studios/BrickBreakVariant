@@ -78,7 +78,7 @@ public class GameControllerColorChange : MonoBehaviour
 
     public void UpdateScore(int streak, Transform location)
     {
-        Debug.Log(location.position);
+        //Debug.Log(location.position);
         countText.text = "Bricks: " + numBricks;
         score += 100 * streak;
         scoreText.text = "Score: " + score;

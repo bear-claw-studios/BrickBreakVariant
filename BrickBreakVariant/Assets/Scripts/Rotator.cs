@@ -17,7 +17,7 @@ public class Rotator : MonoBehaviour
     void Update()
     {
         float input = Input.GetAxis("Horizontal");
-        //Touch touchInput = Input.GetTouch(0);
+        Touch touchInput = Input.GetTouch(0);
 
         if(input != 0.0f)
         {
@@ -31,7 +31,7 @@ public class Rotator : MonoBehaviour
             }
         }
         
-        /*
+        
         if(touchInput.deltaPosition != Vector2.zero)
         {
             float x = touchInput.deltaPosition.x;
@@ -45,6 +45,6 @@ public class Rotator : MonoBehaviour
                 transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
             }
         } 
-        */
+        
     }
 }

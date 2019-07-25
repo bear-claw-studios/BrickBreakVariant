@@ -31,6 +31,9 @@ public class BallColorChanger : MonoBehaviour
 
     public float maxSpeed;
 
+    public int taps = 0;
+    public float timeSinceTap;
+
     //ParticleSystem ps;
 
     // Start is called before the first frame update
@@ -51,12 +54,34 @@ public class BallColorChanger : MonoBehaviour
 
     void Update()
     {
+        Touch tap = Input.GetTouch(0);
+        if(tap.phase == TouchPhase.Ended)
+        {
+            if (taps == 0)
+            {
+                Debug.Log("One Tap");
+                timeSinceTap = Time.time;
+                taps++;
+            }
+            else if (taps == 1 && (Time.time - timeSinceTap <= 0.5f) /* and done within the time */)
+            {
+                //Double Tap
+                Debug.Log("Double Tap");
+                ChangeColor();
+                taps = 0;
+            }
+            else
+                taps = 0;
+        }
+
         //In case it gets stuck on the wall...
         if (Input.GetKeyDown(KeyCode.R))
             Respawn();
 
+        /*
         if (Input.GetKeyDown(KeyCode.C))
             ChangeColor();
+        */
 
         /*
         if(rb.velocity >= maxSpeed)
