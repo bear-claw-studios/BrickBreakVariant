@@ -45,6 +45,29 @@ public class BallColorChanger : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream:BrickBreakVariant/Assets/Scripts/Color Change Scripts/BallColorChanger.cs
+=======
+        Touch tap = Input.GetTouch(0);
+        if(tap.tapCount == 1 && tap.phase == TouchPhase.Ended)
+        {
+            if (taps == 0)
+            {
+                Debug.Log("One Tap");
+                timeSinceTap = Time.time;
+                taps++;
+            }
+            else if (taps == 1 && (Time.time - timeSinceTap <= 0.5f) /* and done within the time */)
+            {
+                //Double Tap
+                Debug.Log("Double Tap");
+                ChangeColor();
+                taps = 0;
+            }
+            else
+                taps = 0;
+        }
+
+>>>>>>> Stashed changes:BrickBreakVariant/Assets/Scripts/Archived/Color Change Scripts/BallColorChanger.cs
         //In case it gets stuck on the wall...
         if (Input.GetKeyDown(KeyCode.R))
             Respawn();
