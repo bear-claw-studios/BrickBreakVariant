@@ -23,47 +23,47 @@ public class BaseBrick : MonoBehaviour
     void Update()
     {
         if(brick.isMatch){
-            if(brick.black){
+            if(brick.green){
                 Color color = rend.material.color;
                 color.r = 0f; 
-                color.g = 0f;
+                color.g = 1f; //green
                 color.b = 0f;
                 color.a = 1f;
                 rend.material.color = color;
-                // rend.material.SetColor("_Color", Color.black);
+                rend.material.SetColor("_EmissionColor", color);
             } else {
                 Color color = rend.material.color;
-                color.r = 1f; 
-                color.g = 1f;
-                color.b = 1f;
+                color.r = 0f; 
+                color.g = 0f;
+                color.b = 1f; //blue
                 color.a = 1f;
                 rend.material.color = color;
-                // rend.material.SetColor("_Color", Color.white);
+                rend.material.SetColor("_EmissionColor", color);
             }
         } else {
             if (brick.toughness == 0) {
-                    Color color = rend.material.color;
-                    color.r = 1f; //red
-                    color.g = 0f;
-                    color.b = 0f;
-                    rend.material.color = color; 
-                    // rend.material.SetColor("_Color", Color.red);
+                Color color = rend.material.color;
+                color.r = 1f; //red
+                color.g = 0f;
+                color.b = 0f;
+                rend.material.color = color; 
+                rend.material.SetColor("_EmissionColor", color);
             }
             if (brick.toughness == 1) {
                 Color color = rend.material.color;
                 color.r = 1f;
-                color.g = 0f;
-                color.b = 1f; //red and blue for magenta
+                color.g = 0.64f; //orange
+                color.b = 0f; 
                 rend.material.color = color; 
-                // rend.material.SetColor("_Color", Color.magenta);
+                rend.material.SetColor("_EmissionColor", color);
             }
             if (brick.toughness == 2) {
                 Color color = rend.material.color;
-                color.r = 0f;
-                color.g = 0f;
-                color.b = 1f; //blue
+                color.r = 1f;
+                color.g = 0.92f; //yellow
+                color.b = 0.016f; 
                 rend.material.color = color; 
-                // rend.material.SetColor("_Color", Color.blue);
+                rend.material.SetColor("_EmissionColor", color);
             }
         }
         
@@ -79,7 +79,7 @@ public class BaseBrick : MonoBehaviour
                 // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.isActive = false;
                 calcPowerUp(collision.gameObject);
-            } else if(brick.black && ball.black || brick.white && ball.white){
+            } else if(brick.green && ball.green || brick.blue && ball.blue){
                 // gc.BrickDestroyed();
                 // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.toughness--;

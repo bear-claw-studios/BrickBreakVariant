@@ -7,8 +7,8 @@ public class BaseBall : MonoBehaviour
     Renderer rend;
     public Rigidbody rb;
     public GameObject blackhole;
-    public bool black = false;
-    public bool white = true;
+    public bool blue = false;
+    public bool green = true;
 
     public int wallHit = 0;
 
@@ -16,6 +16,8 @@ public class BaseBall : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
+        rend.material.SetColor("_Color", Color.green);
+        rend.material.SetColor("_EmissionColor", Color.green);
         GameManager.Instance.startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         blackhole = GameObject.FindWithTag("Black Hole");
@@ -27,11 +29,12 @@ public class BaseBall : MonoBehaviour
         void Update()
     {
         //Switch ball color
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C)){
             ChangeColor();
+        }
 
         if(GameManager.Instance.bigBall){
-            transform.localScale = new Vector3(1,1,1);        
+            transform.localScale = new Vector3(.75f,.75f,.75f);        
         } else {
             transform.localScale = new Vector3(.5f,.5f,.5f);        
         }
@@ -73,15 +76,17 @@ public class BaseBall : MonoBehaviour
 
     void ChangeColor()
     {
-        if(white)
+        if(green)
         {
-            rend.material.SetColor("_Color", Color.black);
-            white = false; black = true;
+            rend.material.SetColor("_Color", Color.blue);
+            rend.material.SetColor("_EmissionColor", Color.blue);
+            green = false; blue = true;
         }
-        else if(black)
+        else if(blue)
         {
-            rend.material.SetColor("_Color", Color.white);
-            white = true; black = false;
+            rend.material.SetColor("_Color", Color.green);
+            rend.material.SetColor("_EmissionColor", Color.green);
+            green = true; blue = false;
         }
     }
 

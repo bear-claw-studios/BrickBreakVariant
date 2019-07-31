@@ -610,10 +610,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 6247443f-bce0-4d03-bff1-b28db7de3053
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: BrickBreakVariant
+  organizationId: unity_r7zk36s3tw2kfg
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

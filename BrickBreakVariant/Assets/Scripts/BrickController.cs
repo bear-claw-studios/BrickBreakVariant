@@ -20,8 +20,8 @@ public class BrickController : MonoBehaviour
     private float timer = 0f;
     
     //For Match
-    public bool black;
-    public bool white;
+    public bool blue;
+    public bool green;
 
     // Start is called before the first frame update
     void Start()

@@ -64,16 +64,16 @@ public class LevelLoader : MonoBehaviour
             if(Array.Exists(levelOne[1], el => el == element)){
                 controller.isActive = true;
                 controller.isMatch = true;
-                controller.black = true;
-                controller.white = false;
+                controller.blue = true;
+                controller.green = false;
 
             }
             //isMatch-White
             if(Array.Exists(levelOne[2], el => el == element)){
                 controller.isActive = true;
                 controller.isMatch = true;
-                controller.black = false;
-                controller.white = true;
+                controller.blue = false;
+                controller.green = true;
             }
             //toughness 0
             if(Array.Exists(levelOne[3], el => el == element)){    

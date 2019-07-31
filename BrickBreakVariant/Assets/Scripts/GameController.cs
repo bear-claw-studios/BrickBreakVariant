@@ -18,8 +18,18 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-
+	public void Update(){
+		if (Input.GetKeyDown(KeyCode.R)){
+            Respawn();
+        }
+	}
     public void AddBall () {
         Instantiate(ball, GameManager.Instance.ballVector, Quaternion.identity);
     }
+
+	public void Respawn (){
+		GameManager.Instance.ballVector = GameManager.Instance.startPos;
+		AddBall();
+	}
+
 }
