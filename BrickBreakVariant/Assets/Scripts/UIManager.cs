@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     public Text scoreText, streakText, livesText, brickText, notificationText, subtitleText;
 
+    public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu;
+
     void Awake(){
         if (Instance == null) {
 			Instance = this;
@@ -18,6 +20,16 @@ public class UIManager : MonoBehaviour
 			Destroy(gameObject);
 		}
     }
+
+    void Start()
+    {
+        mainMenu.SetActive(true);
+        Pause();
+        settingsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+        gameOverMenu.SetActive(false);
+    }
+
     void Update(){
         livesText.text = "Extra Lives: " + GameManager.Instance.lives;
         brickText.text = "Bricks Left: " + GameManager.Instance.bricksLeft;
@@ -45,4 +57,62 @@ public class UIManager : MonoBehaviour
         subtitleText.text = "";
     }
 
+    public void StartGame()
+    {
+        mainMenu.SetActive(false);
+        Resume();
+    }
+
+    public void OpenSettingsMenu()
+    {
+        settingsMenu.SetActive(true);
+        Pause();
+    }
+
+    public void ExitSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
+        if(!mainMenu.activeInHierarchy)
+            Resume();
+    }
+
+    public void OpenCreditsMenu()
+    {
+        creditsMenu.SetActive(true);
+        Pause();
+    }
+
+    public void ExitCreditsMenu()
+    {
+        creditsMenu.SetActive(false);
+        if (!mainMenu.activeInHierarchy)
+            Resume();
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0.0f;
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1.0f;
+    }
+
+    public void OpenGameOverMenu()
+    {
+        gameOverMenu.SetActive(true);
+    }
+
+    public void WatchAd()
+    {
+
+    }
+
+    public void BackToMainMenu()
+    {
+        mainMenu.SetActive(true);
+        gameOverMenu.SetActive(false);
+        Pause();
+    }
 }

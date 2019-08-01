@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 		if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame && GameManager.Instance.lives <=0){
 			GameManager.Instance.activeGame = false;
 			UIManager.Instance.Notify("GAME OVER", 5f);
+            UIManager.Instance.OpenGameOverMenu();
 		} else if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame){
 			GameManager.Instance.activeGame = false;
 			GameManager.Instance.lives--;

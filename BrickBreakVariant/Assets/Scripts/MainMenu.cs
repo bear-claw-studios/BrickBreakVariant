@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public static AudioManager Instance { get; private set; }
+
     public GameObject settingsMenu, creditsMenu;
 
     // Start is called before the first frame update
