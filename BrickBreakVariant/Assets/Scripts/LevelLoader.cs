@@ -109,7 +109,7 @@ public class LevelLoader : MonoBehaviour
         isLoaded = true;         
     }
 
-    void GenerateLevel(){
+    public void GenerateLevel(){
         for(var i = 0; i < bricks.Length; i++){
                 GameObject brick;
                 brick = GameObject.Find(bricks[i]);
@@ -178,6 +178,7 @@ public class LevelLoader : MonoBehaviour
         //         }
         //     }
         // }
+        isLoaded = true;
     }
 
     //LEVELS
@@ -236,5 +237,17 @@ public class LevelLoader : MonoBehaviour
         new string[] {"R11", "R13", "R15"}, //toughness 1
         new string[] {"R12", "R14", "R16"} //toughness 2
     };
+
+    public string[][] six = {
+        new string[] {}, //isFade
+        new string[] {"N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39"}, //isMatch-Black
+        new string[] {"R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615",}, //isMatch-White
+        new string[] {"N11", "N12", "N13",
+                      "N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39",
+                      "R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615"}, //toughness 0
+        new string[] {"N14", "N15", "N16"}, //toughness 1
+        new string[] {} //toughness 2
+    };
+
 
 }

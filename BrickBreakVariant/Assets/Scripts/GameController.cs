@@ -101,12 +101,18 @@ public class GameController : MonoBehaviour
 				UIManager.Instance.Notify("LEVEL FIVE", 1f);
 				UIManager.Instance.Subtitle("Wallflowers", 1f);
 				break;
-			// case 5:
-			// 	LevelLoader.Instance.LoadLevel(LevelLoader.Instance.five);
-			// 	UIManager.Instance.Notify("LEVEL FIVE", 1f);
-			// 	UIManager.Instance.Subtitle("Double Tap to Change Colors", 1f);
-			// 	break;
-            }
+			case 6:
+				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.six);
+				UIManager.Instance.Notify("LEVEL SIX", 1f);
+				UIManager.Instance.Subtitle("Double Tap to Change Colors", 1f);
+				break;
+			default:
+				string message = "ENDLESS MODE: " + (GameManager.Instance.onLevel - 6).ToString();
+				LevelLoader.Instance.GenerateLevel();
+				UIManager.Instance.Notify(message, 1f);
+				UIManager.Instance.Subtitle("There is No Rationality", 1f);
+				break;
+		}
 	}
 
 	public void UpdateScore(){
