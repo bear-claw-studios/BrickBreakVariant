@@ -7,6 +7,8 @@ public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader Instance {get; private set; }
 
+    public bool isLoaded = false;
+
     string[] bricks = {
                         "N11", "N12", "N13", "N14", "N15", "N16",
                         "N21", "N22", "N23", "N24", "N25", "N26", "N27", "N28",
@@ -45,9 +47,11 @@ public class LevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadLevel(one);
-        UIManager.Instance.Notify("LEVEL ONE", 1f);
-        UIManager.Instance.Subtitle("The Basics", 1f);
+        // LoadLevel(one);
+        // UIManager.Instance.Notify("LEVEL ONE", 1f);
+        // UIManager.Instance.Subtitle("The Basics", 1f);
+        // GenerateLevel();
+
     }
 
     // Update is called once per frame
@@ -100,9 +104,82 @@ public class LevelLoader : MonoBehaviour
                 controller.toughness = 2;
                 GameManager.Instance.bricksLeft++;
             }
-
-        }         
+        }
+        // StartCoroutine(GameController.Instance.Respawn());
+        isLoaded = true;         
     }
+
+    void GenerateLevel(){
+        for(var i = 0; i < bricks.Length; i++){
+                GameObject brick;
+                brick = GameObject.Find(bricks[i]);
+                BrickController controller = brick.GetComponent<BrickController>();
+            if(i < 6){
+                controller.isActive = true;
+                GameManager.Instance.bricksLeft++;
+                controller.toughness = UnityEngine.Random.Range(0, 3);
+            } else {
+                if(UnityEngine.Random.Range(0, 3) == 0){
+                    controller.isActive = true;
+                    GameManager.Instance.bricksLeft++;
+                    int type = UnityEngine.Random.Range(0, 3);
+                    switch(type){
+                        case 0: //isFade
+                            controller.isFade = true;
+                            controller.toughness = UnityEngine.Random.Range(0, 3);
+                            break;
+                        case 1: //isMatch
+                            controller.isMatch = true;
+                            controller.toughness = 0;
+                            if(UnityEngine.Random.Range(0,2) == 0){
+                                controller.blue = true;
+                                controller.green = false;
+                            } else {
+                                controller.blue = false;
+                                controller.green = true;
+                            }
+                            break;
+                        case 2: //just tough
+                            //maybe switch to different odds later
+                            controller.toughness = UnityEngine.Random.Range(0, 3);
+                            break;
+                    }
+                }                
+            }
+		}
+        // foreach(string element in bricks){
+        //     GameObject brick;
+        //     brick = GameObject.Find(element);
+        //     BrickController controller = brick.GetComponent<BrickController>();
+        //     if(UnityEngine.Random.Range(0, 3) == 0){
+        //         controller.isActive = true;
+        //         GameManager.Instance.bricksLeft++;
+        //         int type = UnityEngine.Random.Range(0, 3);
+        //         switch(type){
+        //             case 0: //isFade
+        //                 controller.isFade = true;
+        //                 controller.toughness = UnityEngine.Random.Range(0, 3);
+        //                 break;
+        //             case 1: //isMatch
+        //                 controller.isMatch = true;
+        //                 controller.toughness = 0;
+        //                 if(UnityEngine.Random.Range(0,2) == 0){
+        //                     controller.blue = true;
+        //                     controller.green = false;
+        //                 } else {
+        //                     controller.blue = false;
+        //                     controller.green = true;
+        //                 }
+        //                 break;
+        //             case 2: //just tough
+        //                 //maybe switch to different odds later
+        //                 controller.toughness = UnityEngine.Random.Range(0, 3);
+        //                 break;
+        //         }
+        //     }
+        // }
+    }
+
     //LEVELS
     public string[][] one = {
         new string[] {}, //isFade
@@ -119,10 +196,45 @@ public class LevelLoader : MonoBehaviour
         new string[] {}, //isFade
         new string[] {}, //isMatch-Black
         new string[] {}, //isMatch-White
-        new string[] {"N31", "N33", "N35", "N37", "N39",
-                      "N51", "N53", "N55", "N57", "N59", "N511"}, //toughness 0
-        new string[] {"N11", "N12", "N13", "N14", "N15", "N16",}, //toughness 1
-        new string[] {"N32", "N34", "N36", "N38"} //toughness 2
+        new string[] {"N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39",
+                      "N51", "N55", "N59" }, //toughness 0
+        new string[] {"N11", "N13", "N15"}, //toughness 1
+        new string[] {"N12", "N14", "N16", "N53", "N57", "N511"} //toughness 2
+    };
+
+    public string[][] three = {
+        new string[] {}, //isFade
+        new string[] {}, //isMatch-Black
+        new string[] {}, //isMatch-White
+        new string[] {"N11", "N14", 
+                      "N61", "N64", "N67", "N610", "N613",
+                      "R41", "R43", "R45", "R47", "R49", }, //toughness 0
+        new string[] {"N12", "N15", "R42", "R44", "R46", "R48", "R410"}, //toughness 1
+        new string[] {"N13", "N16"} //toughness 2
+    };
+
+    public string[][] four = {
+        new string[] {}, //isFade
+        new string[] {}, //isMatch-Black
+        new string[] {}, //isMatch-White
+        new string[] {"N11", "N13", "N15",
+                      "N21", "N23", "N25", "N27",
+                      "R12", "R14", "R16"}, //toughness 0
+        new string[] {"R22", "R24", "R26", "R28"}, //toughness 1
+        new string[] {"N51", "N55", "N59",
+                      "R53", "R57", "R511"} //toughness 2
+    };
+    public string[][] five = {
+        new string[] {"N28", "N31", "N42", "N53", "N64",
+                      "N23", "N34", "N45", "N56", "N68",
+                      "N26", "N37", "N48", "N510", "N613"}, //isFade
+        new string[] {}, //isMatch-Black
+        new string[] {}, //isMatch-White
+        new string[] {"N28", "N31", "N42", "N53", "N64",
+                      "N23", "N34", "N45", "N56", "N68",
+                      "N26", "N37", "N48", "N510", "N613"}, //toughness 0
+        new string[] {"R11", "R13", "R15"}, //toughness 1
+        new string[] {"R12", "R14", "R16"} //toughness 2
     };
 
 }

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
 
 	private void Start () {
        totalBallTime = ballTime;
+       GameController.Instance.StartLevel(onLevel);
 	}
 
     // Update is called once per frame
