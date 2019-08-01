@@ -6,19 +6,25 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance {get; private set; }
 
+    public bool isPaused = false;
+    public bool activeGame = true;
+
     public Vector3 startPos;
     public int lives = 3;
     public int numBalls = 1;
     // public float forceSpeed = .1f;
     // public float maxBallSpeed = 200f;
     public int bricksLeft;
-    public int onLevel;
+    public int onLevel = 1;
     public int score;
     public int multiplier;
     public bool isShield = false;
     public bool bigBall = false;
     // public int tutorialLevel;
     // public bool isExtra = false;
+
+    public bool greenBall = true;
+    public bool blueBall = false;
 
     //for testing
     public bool activeBlackHole = true;
@@ -45,7 +51,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void Start () {
-       totalBallTime = ballTime; 
+       totalBallTime = ballTime;
 	}
 
     // Update is called once per frame

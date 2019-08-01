@@ -5,6 +5,8 @@ using System;
 
 public class LevelLoader : MonoBehaviour
 {
+    public static LevelLoader Instance {get; private set; }
+
     string[] bricks = {
                         "N11", "N12", "N13", "N14", "N15", "N16",
                         "N21", "N22", "N23", "N24", "N25", "N26", "N27", "N28",
@@ -31,37 +33,42 @@ public class LevelLoader : MonoBehaviour
     //for each element in brick array check if exists in level array
     //search for game object with [element] name
     //set game object to active
+    private void Awake () {
+		if (Instance == null) {
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		} else {
+			Destroy(gameObject);
+		}
+	}
 
     // Start is called before the first frame update
     void Start()
     {
-        LoadLevel();
-    //     foreach(string element in bricks){
-    //         if(Array.Exists(level, el => el == element)){
-       
-    // }
-    //         }    
+        LoadLevel(one);
+        UIManager.Instance.Notify("LEVEL ONE", 1f);
+        UIManager.Instance.Subtitle("The Basics", 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
-            LoadLevel();        
+            LoadLevel(one);        
     }
 
-    void LoadLevel(){
+    public void LoadLevel(string[][] level){
         foreach(string element in bricks){
             GameObject brick;
             brick = GameObject.Find(element);
             BrickController controller = brick.GetComponent<BrickController>();
             //isFade
-            if(Array.Exists(levelOne[0], el => el == element)){    
+            if(Array.Exists(level[0], el => el == element)){    
                 controller.isActive = true;
                 controller.isFade = true;
             }
             //isMatch-Black
-            if(Array.Exists(levelOne[1], el => el == element)){
+            if(Array.Exists(level[1], el => el == element)){
                 controller.isActive = true;
                 controller.isMatch = true;
                 controller.blue = true;
@@ -69,28 +76,53 @@ public class LevelLoader : MonoBehaviour
 
             }
             //isMatch-White
-            if(Array.Exists(levelOne[2], el => el == element)){
+            if(Array.Exists(level[2], el => el == element)){
                 controller.isActive = true;
                 controller.isMatch = true;
                 controller.blue = false;
                 controller.green = true;
             }
             //toughness 0
-            if(Array.Exists(levelOne[3], el => el == element)){    
+            if(Array.Exists(level[3], el => el == element)){    
                 controller.isActive = true;
                 controller.toughness = 0;
+                GameManager.Instance.bricksLeft++;
             }
             //toughness 1
-            if(Array.Exists(levelOne[4], el => el == element)){    
+            if(Array.Exists(level[4], el => el == element)){    
                 controller.isActive = true;
                 controller.toughness = 1;
+                GameManager.Instance.bricksLeft++;
             }
             //toughness 2
-            if(Array.Exists(levelOne[5], el => el == element)){    
+            if(Array.Exists(level[5], el => el == element)){    
                 controller.isActive = true;
                 controller.toughness = 2;
+                GameManager.Instance.bricksLeft++;
             }
 
         }         
     }
+    //LEVELS
+    public string[][] one = {
+        new string[] {}, //isFade
+        new string[] {}, //isMatch-Black
+        new string[] {}, //isMatch-White
+        new string[] {"N11", "N12", "N13", "N14", "N15", "N16", 
+                      "N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39",
+                      "N51", "N53", "N55", "N57", "N59", "N511"}, //toughness 0
+        new string[] {}, //toughness 1
+        new string[] {} //toughness 2
+    };
+
+    public string[][] two = {
+        new string[] {}, //isFade
+        new string[] {}, //isMatch-Black
+        new string[] {}, //isMatch-White
+        new string[] {"N31", "N33", "N35", "N37", "N39",
+                      "N51", "N53", "N55", "N57", "N59", "N511"}, //toughness 0
+        new string[] {"N11", "N12", "N13", "N14", "N15", "N16",}, //toughness 1
+        new string[] {"N32", "N34", "N36", "N38"} //toughness 2
+    };
+
 }

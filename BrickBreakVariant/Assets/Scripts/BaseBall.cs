@@ -16,13 +16,20 @@ public class BaseBall : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        rend.material.SetColor("_Color", Color.green);
-        rend.material.SetColor("_EmissionColor", Color.green);
+        if(GameManager.Instance.greenBall){
+            rend.material.SetColor("_Color", Color.green);
+            rend.material.SetColor("_EmissionColor", Color.green);
+        } else {
+            rend.material.SetColor("_Color", Color.blue);
+            rend.material.SetColor("_EmissionColor", Color.blue);
+        }
         GameManager.Instance.startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         blackhole = GameObject.FindWithTag("Black Hole");
 
-        rb.velocity = new Vector3(0,10,0);
+        // rb.velocity = new Vector3(0,10,0);
+        rb.velocity = new Vector3(0,8,0);
+
 
     }
 
@@ -44,6 +51,7 @@ public class BaseBall : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // if(GameManager.Instance.)
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
         Debug.DrawRay(transform.position, forward, Color.green);
     }
@@ -51,42 +59,56 @@ public class BaseBall : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Black Hole")){
+            AudioManager.Instance.PlayEffect("loss");
             wallHit = 0;
-            GameManager.Instance.lives--;
+            UIManager.Instance.Notify("Whoops!!", 1);
+            GameManager.Instance.numBalls--;
+            GameManager.Instance.multiplier = 0;
             if(GameManager.Instance.activeBlackHole){
                 Destroy(gameObject);
             }
         } else if(collision.gameObject.CompareTag("Brick")){
+            GameManager.Instance.multiplier++;
             wallHit = 0;
         } else if(collision.gameObject.CompareTag("Ball")){
             wallHit = 0;
         } else if(collision.gameObject.CompareTag("Shield")){
             wallHit = 0;
             GameManager.Instance.isShield = false;
+            GetComponent<BallAudio>().ballContact("break");
         } else if (collision.gameObject.CompareTag("Stage")){
-            if(wallHit >=6){
-                rb.velocity = new Vector3(0,0,0);
-                transform.LookAt(blackhole.transform);
-                rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
-            } else {
-                wallHit++;
-            }
+            //this doesn't work again
+            //hopefully a redirect won't be necessary, with the improved timestep
+            // if(wallHit >= 6){
+            //     rb.velocity = new Vector3(0,0,0);
+            //     transform.LookAt(blackhole.transform);
+            //     rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
+            // } else {
+            //     wallHit++;
+            // }
+            GameController.Instance.UpdateScore();
+            wallHit++;
+            GetComponent<BallAudio>().ballContact("bounce");
         }        
     }
 
     void ChangeColor()
     {
-        if(green)
+        if(GameManager.Instance.greenBall)
         {
             rend.material.SetColor("_Color", Color.blue);
             rend.material.SetColor("_EmissionColor", Color.blue);
-            green = false; blue = true;
+            GameManager.Instance.greenBall = false; 
+            GameManager.Instance.blueBall = true;
+            AudioManager.Instance.PlayEffect("changeColor");
         }
-        else if(blue)
+        else if(GameManager.Instance.blueBall)
         {
             rend.material.SetColor("_Color", Color.green);
             rend.material.SetColor("_EmissionColor", Color.green);
-            green = true; blue = false;
+            GameManager.Instance.greenBall = true; 
+            GameManager.Instance.blueBall = false;
+            AudioManager.Instance.PlayEffect("changeColor");
         }
     }
 

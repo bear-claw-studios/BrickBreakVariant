@@ -78,13 +78,19 @@ public class BaseBrick : MonoBehaviour
                 // gc.BrickDestroyed();
                 // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.isActive = false;
+                GameManager.Instance.bricksLeft--;
                 calcPowerUp(collision.gameObject);
-            } else if(brick.green && ball.green || brick.blue && ball.blue){
+                collision.gameObject.GetComponent<BallAudio>().ballContact("break");
+            } else if(brick.green && GameManager.Instance.greenBall || brick.blue && GameManager.Instance.blueBall){
                 // gc.BrickDestroyed();
                 // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.toughness--;
+                collision.gameObject.GetComponent<BallAudio>().ballContact("bounce");
             } else if(!brick.isMatch){
                 brick.toughness--;
+                collision.gameObject.GetComponent<BallAudio>().ballContact("bounce");
+            } else {
+                collision.gameObject.GetComponent<BallAudio>().ballContact("bounce");
             }
         }
     }
@@ -96,17 +102,22 @@ public class BaseBrick : MonoBehaviour
             //add a life
             GameManager.Instance.lives++;
             Debug.Log("life added");
+            AudioManager.Instance.PlayEffect("extraLife");
+            UIManager.Instance.Notify("Extra Life!", .5f);
         }
         if(powerup >= 1 && powerup <= 2) {
             //add balls
-            GameManager.Instance.numBalls ++;
             GameManager.Instance.ballVector = ball.transform.position;
             gc.AddBall();
+            AudioManager.Instance.PlayEffect("powerup");
+            UIManager.Instance.Notify("Extra Ball!", .5f);
         }
         if(powerup >= 3 && powerup <= 4) {
             //shield
             GameManager.Instance.isShield = true;
             Debug.Log("shield active");
+            AudioManager.Instance.PlayEffect("powerup");
+            UIManager.Instance.Notify("Shield Active!", .5f);
         }
         if(powerup >= 5 && powerup <= 6) {
             //speed
@@ -116,11 +127,15 @@ public class BaseBrick : MonoBehaviour
             GameManager.Instance.bigBall = true;
             GameManager.Instance.totalBallTime += GameManager.Instance.ballTime;
             Debug.Log("big ball");
+            AudioManager.Instance.PlayEffect("powerup");
+            UIManager.Instance.Notify("Mega Ball!", .5f);
         }
         if(powerup >= 9 && powerup <= 10) {
             //score multiplier
             GameManager.Instance.multiplier++;
             Debug.Log("multiplier incremented");
+            AudioManager.Instance.PlayEffect("powerup");
+            UIManager.Instance.Notify("Multiplier!", .5f);
         }
     }
 

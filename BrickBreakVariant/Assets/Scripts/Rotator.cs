@@ -21,6 +21,7 @@ public class Rotator : MonoBehaviour
 
         if(input != 0.0f)
         {
+            AudioManager.Instance.isRotating = true;
             if (reverse)
             {
                 transform.Rotate(0.0f, 0.0f, (input * rotateSpeed));
@@ -29,6 +30,8 @@ public class Rotator : MonoBehaviour
             {
                 transform.Rotate(0.0f, 0.0f, -(input * rotateSpeed));
             }
+        } else {
+            AudioManager.Instance.isRotating = false;
         }
         
         
