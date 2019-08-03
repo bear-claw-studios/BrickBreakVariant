@@ -35,6 +35,16 @@ public class BaseBall : MonoBehaviour
 
         void Update()
     {
+        Touch touchInput;
+        if(Input.touchCount == 2)
+        {
+            RedirectBall();
+        }
+        else if(Input.touchCount == 3)
+        {
+            ChangeColor();
+        }
+
         //Switch ball color
         if (Input.GetKeyDown(KeyCode.C)){
             ChangeColor();
@@ -112,7 +122,12 @@ public class BaseBall : MonoBehaviour
         }
     }
 
-
+    void RedirectBall()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+        transform.LookAt(blackhole.transform);
+        rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
+    }
 }
 
 

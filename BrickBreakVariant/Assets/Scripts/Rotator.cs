@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
-    public float rotateSpeed = 2.0f;
+    public float rotateSpeed = 1.0f;
+    //Anything below this seems a bit pointless for sensitivity
+    private float baseRotateSpeed = 0.25f;
     public bool reverse = false;
 
     // Start is called before the first frame update
@@ -49,5 +51,10 @@ public class Rotator : MonoBehaviour
              }
          } 
         
+    }
+
+    public void SetRotationSpeed(float speed)
+    {
+        rotateSpeed = baseRotateSpeed + speed;
     }
 }
