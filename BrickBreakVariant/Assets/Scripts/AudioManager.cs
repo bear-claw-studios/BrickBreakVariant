@@ -95,6 +95,9 @@ public class AudioManager : MonoBehaviour
     public void ToggleMusic()
     {
         playMusic = !playMusic;
+
+        if (playMusic == false)
+            music.Pause();
     }
 
     public void SetMusicVolume(float volume)
