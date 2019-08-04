@@ -22,10 +22,12 @@ public class GameController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.R)){
             StartCoroutine(Respawn());
         }
-		if(GameManager.Instance.bricksLeft == 0 && GameManager.Instance.activeGame){
+		if(LevelLoader.Instance.isLoaded){
+			StartCoroutine(Respawn());
+			LevelLoader.Instance.isLoaded = false;
+		} else if(GameManager.Instance.bricksLeft == 0 && GameManager.Instance.activeGame){
 			WinLevel();
-		}
-		if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame && GameManager.Instance.lives <=0){
+		} else if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame && GameManager.Instance.lives <=0){
 			GameManager.Instance.activeGame = false;
 			UIManager.Instance.Notify("GAME OVER", 5f);
             UIManager.Instance.OpenGameOverMenu();
@@ -47,6 +49,7 @@ public class GameController : MonoBehaviour
 	// }
 
 	public IEnumerator Respawn (){
+		// GameManager.Instance.numBalls++;
 		yield return new WaitForSeconds(1);
 		UIManager.Instance.Notify("3", 1);
 		yield return new WaitForSeconds(1);
@@ -72,7 +75,7 @@ public class GameController : MonoBehaviour
 		StartLevel(GameManager.Instance.onLevel);
 	}
 
-	void StartLevel(int i){
+	public void StartLevel(int i){
 		switch(i){
 			case 1:
 				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.one);
@@ -84,24 +87,33 @@ public class GameController : MonoBehaviour
 				UIManager.Instance.Notify("LEVEL TWO", 1f);
 				UIManager.Instance.Subtitle("Some are Tougher", 1f);;
 				break;
-			// case 3:
-			// 	LevelLoader.Instance.LoadLevel(LevelLoader.Instance.three);
-			// 	UIManager.Instance.Notify("LEVEL THREE", 1f);
-			// 	UIManager.Instance.Subtitle("The Contrarians", 1f);
-			// 	break;
-			// case 4:
-			// 	LevelLoader.Instance.LoadLevel(LevelLoader.Instance.four);
-			// 	UIManager.Instance.Notify("LEVEL FOUR", 1f);
-			// 	UIManager.Instance.Subtitle("Wallflowers", 1f);
-			// 	break;
-			// case 5:
-			// 	LevelLoader.Instance.LoadLevel(LevelLoader.Instance.five);
-			// 	UIManager.Instance.Notify("LEVEL FIVE", 1f);
-			// 	UIManager.Instance.Subtitle("Double Tap to Change Colors", 1f);
-			// 	break;
-            }
-			StartCoroutine(Respawn());
-
+			case 3:
+				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.three);
+				UIManager.Instance.Notify("LEVEL THREE", 1f);
+				UIManager.Instance.Subtitle("The Contrarians", 1f);
+				break;
+			case 4:
+				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.four);
+				UIManager.Instance.Notify("LEVEL FOUR", 1f);
+				UIManager.Instance.Subtitle("Look at Them Weave", 1f);
+				break;
+			case 5:
+				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.five);
+				UIManager.Instance.Notify("LEVEL FIVE", 1f);
+				UIManager.Instance.Subtitle("Wallflowers", 1f);
+				break;
+			case 6:
+				LevelLoader.Instance.LoadLevel(LevelLoader.Instance.six);
+				UIManager.Instance.Notify("LEVEL SIX", 1f);
+				UIManager.Instance.Subtitle("Double Tap to Change Colors", 1f);
+				break;
+			default:
+				string message = "ENDLESS MODE: " + (GameManager.Instance.onLevel - 6).ToString();
+				LevelLoader.Instance.GenerateLevel();
+				UIManager.Instance.Notify(message, 1f);
+				UIManager.Instance.Subtitle("There is No Rationality", 1f);
+				break;
+		}
 	}
 
 	public void UpdateScore(){

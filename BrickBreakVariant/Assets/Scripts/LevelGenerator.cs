@@ -19,20 +19,37 @@ public class LevelGenerator : MonoBehaviour
                         "R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615",                        
                         };
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void GenerateLevel(){
-
+        foreach(string element in bricks){
+            GameObject brick;
+            brick = GameObject.Find(element);
+            BrickController controller = brick.GetComponent<BrickController>();
+            if(Random.Range(0, 3) == 0){
+                controller.isActive = true;
+                GameManager.Instance.bricksLeft++;
+                int type = Random.Range(0, 3);
+                switch(type){
+                    case 0: //isFade
+                        controller.isFade = true;
+                        controller.toughness = Random.Range(0, 3);
+                        break;
+                    case 1: //isMatch
+                        controller.isMatch = true;
+                        controller.toughness = 0;
+                        if(Random.Range(0,2) == 0){
+                            controller.blue = true;
+                            controller.green = false;
+                        } else {
+                            controller.blue = false;
+                            controller.green = true;
+                        }
+                        break;
+                    case 2: //just tough
+                        //maybe switch to different odds later
+                        controller.toughness = Random.Range(0, 3);
+                        break;
+                }
+            }
+        }
     }
-
 }
