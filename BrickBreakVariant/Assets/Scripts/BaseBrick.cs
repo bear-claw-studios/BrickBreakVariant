@@ -73,17 +73,20 @@ public class BaseBrick : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             BaseBall ball = collision.gameObject.GetComponent<BaseBall>();
-            if (brick.toughness == 0)
+            if (brick.toughness == 0 && !brick.isMatch)
             {
-                // gc.BrickDestroyed();
-                // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.isActive = false;
+                brick.isFade = false;
+                GameManager.Instance.bricksLeft--;
+                calcPowerUp(collision.gameObject);
+                collision.gameObject.GetComponent<BallAudio>().ballContact("break");
+            } else if(brick.toughness == 0 && (brick.green && GameManager.Instance.greenBall || brick.blue && GameManager.Instance.blueBall)){
+                brick.isActive = false;
+                brick.isMatch = false;
                 GameManager.Instance.bricksLeft--;
                 calcPowerUp(collision.gameObject);
                 collision.gameObject.GetComponent<BallAudio>().ballContact("break");
             } else if(brick.green && GameManager.Instance.greenBall || brick.blue && GameManager.Instance.blueBall){
-                // gc.BrickDestroyed();
-                // gc.UpdateScore(ball.streak, collision.gameObject.transform);
                 brick.toughness--;
                 collision.gameObject.GetComponent<BallAudio>().ballContact("bounce");
             } else if(!brick.isMatch){
@@ -132,7 +135,7 @@ public class BaseBrick : MonoBehaviour
         }
         if(powerup >= 9 && powerup <= 10) {
             //score multiplier
-            GameManager.Instance.multiplier++;
+            GameManager.Instance.multiplier+= 25;
             Debug.Log("multiplier incremented");
             AudioManager.Instance.PlayEffect("powerup");
             UIManager.Instance.Notify("Multiplier!", .5f);
