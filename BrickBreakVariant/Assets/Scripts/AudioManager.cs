@@ -92,6 +92,31 @@ public class AudioManager : MonoBehaviour
         }  
     }
 
+    public void ToggleMusic()
+    {
+        playMusic = !playMusic;
+
+        if (playMusic == false)
+            music.Pause();
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        music.volume = volume;
+    }
+
+    public void ToggleSFX()
+    {
+        playFx = !playFx;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        fx.volume = volume;
+    }
+
+
+
 
     //rotator sound effect
     //ball and brick sound effect
