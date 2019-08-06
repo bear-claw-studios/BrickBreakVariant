@@ -23,45 +23,50 @@ public class BaseBall : MonoBehaviour
             rend.material.SetColor("_Color", Color.blue);
             rend.material.SetColor("_EmissionColor", Color.blue);
         }
-        GameManager.Instance.startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         blackhole = GameObject.FindWithTag("Black Hole");
 
         // rb.velocity = new Vector3(0,10,0);
-        rb.velocity = new Vector3(0,8,0);
+        rb.velocity = new Vector3(0,GameManager.Instance.setSpeed,0);
 
 
     }
 
         void Update()
     {
-        Touch touchInput;
-        if(Input.touchCount == 2)
-        {
-            RedirectBall();
+        // Debug.Log(rb.velocity.magnitude);
+        // Touch touchInput;
+        // if(Input.touchCount == 2)
+        // {
+        //     StartCoroutine(NewVel());
+        // }
+
+		if (Input.GetKeyDown(KeyCode.F)){
+            StartCoroutine(NewVel());
         }
-        else if(Input.touchCount == 3)
-        {
-            ChangeColor();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        //maintains speed and sets hyper speed
+        if(rb.velocity.magnitude < GameManager.Instance.setSpeed){
+            // Debug.Log("speed was: " + rb.velocity.magnitude + ", now reset");
+            rb.velocity = rb.velocity.normalized * GameManager.Instance.setSpeed;
+        }
+        if(GameManager.Instance.hyperSpeed){
+            rb.velocity = rb.velocity.normalized * GameManager.Instance.setHyper;
+        } else if(!GameManager.Instance.hyperSpeed && rb.velocity.magnitude > GameManager.Instance.setSpeed){
+            rb.velocity = rb.velocity.normalized * GameManager.Instance.setSpeed;
         }
 
-        //Switch ball color
-        if (Input.GetKeyDown(KeyCode.C)){
-            ChangeColor();
-        }
-
+        //sets ball size
         if(GameManager.Instance.bigBall){
             transform.localScale = new Vector3(.75f,.75f,.75f);        
         } else {
             transform.localScale = new Vector3(.5f,.5f,.5f);        
         }
 
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        // if(GameManager.Instance.)
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
         Debug.DrawRay(transform.position, forward, Color.green);
     }
@@ -77,6 +82,9 @@ public class BaseBall : MonoBehaviour
             if(GameManager.Instance.activeBlackHole){
                 Destroy(gameObject);
             }
+            GameManager.Instance.hyperSpeed = false;
+            GameManager.Instance.totalSpeedTime = GameManager.Instance.speedTime;
+            GameManager.Instance.speedTimer = 0;
         } else if(collision.gameObject.CompareTag("Brick")){
             GameManager.Instance.multiplier++;
             wallHit = 0;
@@ -87,46 +95,33 @@ public class BaseBall : MonoBehaviour
             GameManager.Instance.isShield = false;
             GetComponent<BallAudio>().ballContact("break");
         } else if (collision.gameObject.CompareTag("Stage")){
-            //this doesn't work again
-            //hopefully a redirect won't be necessary, with the improved timestep
-            // if(wallHit >= 6){
-            //     rb.velocity = new Vector3(0,0,0);
-            //     transform.LookAt(blackhole.transform);
-            //     rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
-            // } else {
-            //     wallHit++;
-            // }
+            if(wallHit >= 6){
+                StartCoroutine(NewVel());
+            } else {
+                wallHit++;
+            }
             GameController.Instance.UpdateScore();
-            wallHit++;
             GetComponent<BallAudio>().ballContact("bounce");
         }        
     }
 
-    void ChangeColor()
-    {
-        if(GameManager.Instance.greenBall)
-        {
-            rend.material.SetColor("_Color", Color.blue);
-            rend.material.SetColor("_EmissionColor", Color.blue);
-            GameManager.Instance.greenBall = false; 
-            GameManager.Instance.blueBall = true;
-            AudioManager.Instance.PlayEffect("changeColor");
-        }
-        else if(GameManager.Instance.blueBall)
-        {
-            rend.material.SetColor("_Color", Color.green);
-            rend.material.SetColor("_EmissionColor", Color.green);
-            GameManager.Instance.greenBall = true; 
-            GameManager.Instance.blueBall = false;
-            AudioManager.Instance.PlayEffect("changeColor");
-        }
-    }
+    // void RedirectBall()
+    // {
+    //     rb.velocity = new Vector3(0, 0, 0);
+    //     transform.LookAt(blackhole.transform);
+    //     rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
+    // }
 
-    void RedirectBall()
-    {
-        rb.velocity = new Vector3(0, 0, 0);
+    IEnumerator NewVel(){
+        yield return new WaitForFixedUpdate();
+        rb.velocity = new Vector3(0,0,0);
         transform.LookAt(blackhole.transform);
-        rb.AddRelativeForce(Vector3.forward * 10, ForceMode.VelocityChange); 
+        yield return new WaitForFixedUpdate();
+        if(GameManager.Instance.hyperSpeed){
+            rb.AddRelativeForce(Vector3.forward * GameManager.Instance.setHyper, ForceMode.VelocityChange); 
+        } else {
+            rb.AddRelativeForce(Vector3.forward * GameManager.Instance.setSpeed, ForceMode.VelocityChange); 
+        }
     }
 }
 

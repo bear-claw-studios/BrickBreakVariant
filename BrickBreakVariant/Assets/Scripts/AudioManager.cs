@@ -53,10 +53,11 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playMusic && !GameManager.Instance.isPaused && !music.isPlaying){
+
+        if(playMusic && !GameManager.Instance.adPlaying && !music.isPlaying){
             PickTrack();
         }
-        if(playFx && !GameManager.Instance.isPaused && isRotating && !rotator.isPlaying){
+        if(playFx && isRotating && !rotator.isPlaying){
             rotator.Play();
         } else {
             rotator.Pause();
@@ -64,7 +65,7 @@ public class AudioManager : MonoBehaviour
     }
 
     void PickTrack(){
-        int trackPick = Random.Range(0, 3);
+        int trackPick = Random.Range(0, 4);
         music.clip = tracks[trackPick];
         music.Play();
     }
@@ -90,6 +91,14 @@ public class AudioManager : MonoBehaviour
             }
             fx.Play();
         }  
+    }
+
+    public void AdBreak(string time){
+        if(time == "start"){
+            music.Pause();
+        } else if(time == "end" && playMusic){
+            music.Play();
+        }
     }
 
     public void ToggleMusic()

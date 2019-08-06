@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
 
     public void WatchAd()
     {
-
+        AdController.Instance.WatchAdvert();
     }
 
     public void BackToMainMenu()
@@ -114,5 +114,6 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         gameOverMenu.SetActive(false);
         Pause();
+        GameManager.Instance.ResetGM();
     }
 }

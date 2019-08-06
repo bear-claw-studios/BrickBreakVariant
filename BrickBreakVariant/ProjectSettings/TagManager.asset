@@ -12,6 +12,7 @@ TagManager:
   - Black
   - White
   - Shield
+  - Rotator
   layers:
   - Default
   - TransparentFX

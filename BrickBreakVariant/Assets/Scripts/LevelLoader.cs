@@ -62,6 +62,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadLevel(string[][] level){
+        ResetBricks();
         foreach(string element in bricks){
             GameObject brick;
             brick = GameObject.Find(element);
@@ -110,6 +111,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void GenerateLevel(){
+        ResetBricks();
         for(var i = 0; i < bricks.Length; i++){
                 GameObject brick;
                 brick = GameObject.Find(bricks[i]);
@@ -147,38 +149,19 @@ public class LevelLoader : MonoBehaviour
                 }                
             }
 		}
-        // foreach(string element in bricks){
-        //     GameObject brick;
-        //     brick = GameObject.Find(element);
-        //     BrickController controller = brick.GetComponent<BrickController>();
-        //     if(UnityEngine.Random.Range(0, 3) == 0){
-        //         controller.isActive = true;
-        //         GameManager.Instance.bricksLeft++;
-        //         int type = UnityEngine.Random.Range(0, 3);
-        //         switch(type){
-        //             case 0: //isFade
-        //                 controller.isFade = true;
-        //                 controller.toughness = UnityEngine.Random.Range(0, 3);
-        //                 break;
-        //             case 1: //isMatch
-        //                 controller.isMatch = true;
-        //                 controller.toughness = 0;
-        //                 if(UnityEngine.Random.Range(0,2) == 0){
-        //                     controller.blue = true;
-        //                     controller.green = false;
-        //                 } else {
-        //                     controller.blue = false;
-        //                     controller.green = true;
-        //                 }
-        //                 break;
-        //             case 2: //just tough
-        //                 //maybe switch to different odds later
-        //                 controller.toughness = UnityEngine.Random.Range(0, 3);
-        //                 break;
-        //         }
-        //     }
-        // }
         isLoaded = true;
+    }
+
+    public void ResetBricks(){
+        for(var i = 0; i < bricks.Length; i++){
+            GameObject brick;
+            brick = GameObject.Find(bricks[i]);
+            BrickController controller = brick.GetComponent<BrickController>();
+            controller.isActive = false;
+            controller.isFade = false;
+            controller.isMatch = false;
+            controller.toughness = 0;
+        }
     }
 
     //LEVELS

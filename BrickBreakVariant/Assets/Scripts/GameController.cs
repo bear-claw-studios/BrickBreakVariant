@@ -19,13 +19,24 @@ public class GameController : MonoBehaviour
 	}
 
 	public void Update(){
+		//for testing
 		if (Input.GetKeyDown(KeyCode.R)){
             StartCoroutine(Respawn());
         }
+		//for testing
+		if (Input.GetKeyDown(KeyCode.C)){
+            ChangeColor();
+        }
+
+		// Touch touchInput;
+		// if(Input.touchCount == 3){
+        //     ChangeColor();
+        // }
+
 		if(LevelLoader.Instance.isLoaded){
 			StartCoroutine(Respawn());
 			LevelLoader.Instance.isLoaded = false;
-		} else if(GameManager.Instance.bricksLeft == 0 && GameManager.Instance.activeGame){
+		} else if(GameManager.Instance.bricksLeft <= 0 && GameManager.Instance.activeGame){
 			WinLevel();
 		} else if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame && GameManager.Instance.lives <=0){
 			GameManager.Instance.activeGame = false;
@@ -40,6 +51,29 @@ public class GameController : MonoBehaviour
     public void AddBall () {
         Instantiate(ball, GameManager.Instance.ballVector, Quaternion.identity);
 		GameManager.Instance.numBalls++;
+    }
+
+	public void ChangeColor() {
+		Renderer rend;
+		var balls = GameObject.FindGameObjectsWithTag("Ball");
+		if(GameManager.Instance.greenBall) {
+			for(var i = 0; i < balls.Length; i++){
+				rend = balls[i].GetComponent<Renderer>();
+				rend.material.SetColor("_Color", Color.blue);
+				rend.material.SetColor("_EmissionColor", Color.blue);
+			}
+			GameManager.Instance.greenBall = false; 
+			GameManager.Instance.blueBall = true;
+		} else if(GameManager.Instance.blueBall) {
+			for(var i = 0; i < balls.Length; i++){
+				rend = balls[i].GetComponent<Renderer>();
+				rend.material.SetColor("_Color", Color.green);
+				rend.material.SetColor("_EmissionColor", Color.green);
+			}
+			GameManager.Instance.greenBall = true; 
+			GameManager.Instance.blueBall = false;
+		}
+		AudioManager.Instance.PlayEffect("changeColor");
     }
 
 	// public void Respawn (){
@@ -63,6 +97,7 @@ public class GameController : MonoBehaviour
 	}
 
 	void WinLevel(){
+
 		GameManager.Instance.activeGame = false;
 		GameManager.Instance.onLevel++;
 		UIManager.Instance.Notify("VICTORY", 5f);
@@ -71,6 +106,10 @@ public class GameController : MonoBehaviour
 		for(var i = 0; i < balls.Length; i++){
 			Destroy(balls[i]);
 			GameManager.Instance.numBalls--;
+		}
+		var rotators = GameObject.FindGameObjectsWithTag("Rotator");
+		for(var i = 0; i < rotators.Length; i++){
+			rotators[i].transform.eulerAngles = new Vector3(0, 0, 0);
 		}
 		StartLevel(GameManager.Instance.onLevel);
 	}
@@ -119,6 +158,17 @@ public class GameController : MonoBehaviour
 	public void UpdateScore(){
 		GameManager.Instance.score += GameManager.Instance.multiplier * 100;
 		GameManager.Instance.multiplier = 0;	
+	}
+
+	public void CheckHighScore(){
+		if(GameManager.Instance.score > GameManager.Instance.highScore && !GameManager.Instance.isExtra){
+			//set new highscore
+			//update gameover menu to notify
+		}
+		if(GameManager.Instance.score > GameManager.Instance.extraHighScore){
+			//set new highscore
+			//update gameover menu to notify
+		}
 	}
 
 }

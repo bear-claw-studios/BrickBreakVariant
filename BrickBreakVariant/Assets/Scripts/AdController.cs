@@ -24,26 +24,50 @@ public class AdController : MonoBehaviour
     void Start()
     {
         //set to false for deployed build
-        Monetization.Initialize(iosID, true);
+        if(Monetization.isSupported){
+            Monetization.Initialize(iosID, true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.X)) {
-            if(Monetization.IsReady(rewardedVideo)){
-                ShowAdPlacementContent advert = null;
-                advert = Monetization.GetPlacementContent(rewardedVideo) as ShowAdPlacementContent;
-
-                if(advert != null){
-                    advert.Show();
-                }
-            }
+            WatchAdvert();
         }       
     }
 
-    void WatchAdvert() {
+    public void WatchAdvert() {
+        AudioManager.Instance.AdBreak("start");
+        GameManager.Instance.adPlaying = true;
+        GameManager.Instance.isExtra = true;
+        if(Monetization.IsReady(rewardedVideo)){
 
+            ShowAdCallbacks options = new ShowAdCallbacks ();
+            options.finishCallback = HandleShowResult;
+
+            ShowAdPlacementContent advert = null;
+            advert = Monetization.GetPlacementContent(rewardedVideo) as ShowAdPlacementContent;
+
+            if(advert != null){
+                advert.Show(options);
+            }
+        }
     }
 
+    void HandleShowResult (ShowResult result) {
+        if (result == ShowResult.Finished) {
+            // Reward the player
+            GameManager.Instance.lives++;
+            UIManager.Instance.gameOverMenu.SetActive(false);
+            UIManager.Instance.Resume();
+            GameManager.Instance.activeGame = true;
+            AudioManager.Instance.AdBreak("end");
+            GameManager.Instance.adPlaying = false;
+        } else if (result == ShowResult.Skipped) {
+            Debug.LogWarning ("The player skipped the video - DO NOT REWARD!");
+        } else if (result == ShowResult.Failed) {
+            Debug.LogError ("Video failed to show");
+        }
+    }
 }

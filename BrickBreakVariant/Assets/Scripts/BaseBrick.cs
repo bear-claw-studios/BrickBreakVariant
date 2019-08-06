@@ -123,6 +123,11 @@ public class BaseBrick : MonoBehaviour
             UIManager.Instance.Notify("Shield Active!", .5f);
         }
         if(powerup >= 5 && powerup <= 6) {
+            GameManager.Instance.hyperSpeed = true;
+            GameManager.Instance.totalSpeedTime += GameManager.Instance.speedTime;
+            Debug.Log("hyper speed active");
+            AudioManager.Instance.PlayEffect("powerup");
+            UIManager.Instance.Notify("Hyper Speed!", .5f);
             //speed
         }
         if(powerup >= 7 && powerup <= 8) {
