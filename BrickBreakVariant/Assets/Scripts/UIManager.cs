@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     public Text scoreText, streakText, livesText, brickText, notificationText, subtitleText;
 
-    public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu;
+    public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu, quitMenu;
 
     void Awake(){
         if (Instance == null) {
@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         gameOverMenu.SetActive(false);
+        quitMenu.SetActive(false);
     }
 
     void Update(){
@@ -112,7 +113,28 @@ public class UIManager : MonoBehaviour
     public void BackToMainMenu()
     {
         mainMenu.SetActive(true);
-        gameOverMenu.SetActive(false);
+        if(gameOverMenu.activeInHierarchy)
+            gameOverMenu.SetActive(false);
+        if (settingsMenu.activeInHierarchy)
+            settingsMenu.SetActive(false);
         Pause();
+    }
+
+    public void OpenQuitMenu()
+    {
+        quitMenu.SetActive(true);
+        Pause();
+    }
+
+    public void ExitQuitMenu()
+    {
+        quitMenu.SetActive(false);
+        if (!mainMenu.activeInHierarchy)
+            Resume();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
