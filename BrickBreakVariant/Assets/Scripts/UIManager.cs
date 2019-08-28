@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     //menu ui
     public Text highScore, extraHighScore;
 
-    public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu;
+    public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu, quitMenu;
 
     void Awake(){
         if (Instance == null) {
@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         gameOverMenu.SetActive(false);
+        quitMenu.SetActive(false);
     }
 
     void Update(){
@@ -114,7 +115,10 @@ public class UIManager : MonoBehaviour
     public void BackToMainMenu()
     {
         mainMenu.SetActive(true);
-        gameOverMenu.SetActive(false);
+        if(gameOverMenu.activeInHierarchy)
+            gameOverMenu.SetActive(false);
+        if (settingsMenu.activeInHierarchy)
+            settingsMenu.SetActive(false);
         Pause();
         GameManager.Instance.ResetGM();
     }
