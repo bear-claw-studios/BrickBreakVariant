@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance {get; private set; }
-
+    //game ui
     public Text scoreText, streakText, livesText, brickText, notificationText, subtitleText;
+    //menu ui
+    public Text highScore, extraHighScore;
 
     public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu;
 
@@ -116,4 +118,9 @@ public class UIManager : MonoBehaviour
         Pause();
         GameManager.Instance.ResetGM();
     }
+
+    public void UpdateHighScores(){
+
+    }
+
 }
