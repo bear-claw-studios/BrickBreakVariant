@@ -123,7 +123,8 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.ResetGM();
     }
 
-    public void UpdateHighScores(){
+    public void UpdateHighScores()
+    {
 
     }
 
