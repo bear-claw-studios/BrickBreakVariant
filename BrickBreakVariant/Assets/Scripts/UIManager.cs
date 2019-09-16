@@ -123,6 +123,23 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.ResetGM();
     }
 
+    public void OpenQuitMenu()
+    {
+        quitMenu.SetActive(true);
+        Pause();
+    }
+
+    public void ExitQuitMenu()
+    {
+        quitMenu.SetActive(false);
+        Resume();
+    }
+
+    public void Yes()
+    {
+        Application.Quit();
+    }
+
     public void UpdateHighScores()
     {
 
