@@ -5,8 +5,7 @@ using UnityEngine;
 public class Rotator : MonoBehaviour
 {
     private float baseAngle = 0.0f;
-    Vector3 pos;
-    public bool reverse = false;
+    public bool reverse;
 
     /*
     public float rotateSpeed = 1.0f;
@@ -67,16 +66,12 @@ public class Rotator : MonoBehaviour
     */
 
     void OnMouseDown()
-    {
-        
+    {    
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         pos = Input.mousePosition - pos;
         Debug.Log(pos);
         baseAngle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg;
         baseAngle -= Mathf.Atan2(transform.right.y, transform.right.x) * Mathf.Rad2Deg;
-        
-        //pos = Input.mousePosition;
-        //Debug.Log(pos);
     }
 
     void OnMouseDrag()
@@ -84,14 +79,10 @@ public class Rotator : MonoBehaviour
         
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         pos = Input.mousePosition - pos;
-        Debug.Log(pos);
         float ang = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - baseAngle;
-        Debug.Log(ang);
         if(reverse)
             transform.rotation = Quaternion.AngleAxis(-ang, Vector3.forward);
         else
             transform.rotation = Quaternion.AngleAxis(ang, Vector3.forward);
-
-        //transform.Rotate(0.0f, 0.0f, (Input.mousePosition.x - pos.x));
     }
 }

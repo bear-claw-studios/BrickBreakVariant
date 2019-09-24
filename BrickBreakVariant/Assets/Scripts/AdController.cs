@@ -64,6 +64,10 @@ public class AdController : MonoBehaviour
             GameManager.Instance.activeGame = true;
             AudioManager.Instance.AdBreak("end");
             GameManager.Instance.adPlaying = false;
+
+            //Exit button was being clicked while the Ad close button was clicked too
+            UIManager.Instance.exitButton.enabled = true;
+
         } else if (result == ShowResult.Skipped) {
             Debug.LogWarning ("The player skipped the video - DO NOT REWARD!");
         } else if (result == ShowResult.Failed) {

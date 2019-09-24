@@ -11,8 +11,12 @@ public class UIManager : MonoBehaviour
     public Text scoreText, streakText, livesText, brickText, notificationText, subtitleText;
     //menu ui
     public Text highScore, extraHighScore;
+    //game over high score text
+    public Text goHighScore, goExtraHighScore;
 
     public GameObject mainMenu, settingsMenu, creditsMenu, gameOverMenu, quitMenu;
+
+    public Button exitButton;
 
     void Awake(){
         if (Instance == null) {
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour
         creditsMenu.SetActive(false);
         gameOverMenu.SetActive(false);
         quitMenu.SetActive(false);
+        UpdateHighScores();
     }
 
     void Update(){
@@ -105,11 +110,13 @@ public class UIManager : MonoBehaviour
     public void OpenGameOverMenu()
     {
         gameOverMenu.SetActive(true);
+        UpdateHighScores();
     }
 
     public void WatchAd()
     {
         AdController.Instance.WatchAdvert();
+        exitButton.enabled = false;
     }
 
     public void BackToMainMenu()
@@ -121,6 +128,7 @@ public class UIManager : MonoBehaviour
             settingsMenu.SetActive(false);
         Pause();
         GameManager.Instance.ResetGM();
+        UpdateHighScores();
     }
 
     public void OpenQuitMenu()
@@ -142,7 +150,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHighScores()
     {
-
+        highScore.text = "No Help High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+        extraHighScore.text = "Help High Score: " + PlayerPrefs.GetInt("ExtraHighScore").ToString();
+        goHighScore.text = "No Help High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+        goExtraHighScore.text = "Help High Score: " + PlayerPrefs.GetInt("ExtraHighScore").ToString();
     }
-
 }

@@ -157,20 +157,23 @@ public class GameController : MonoBehaviour
 
 	public void UpdateScore(){
 		GameManager.Instance.score += GameManager.Instance.multiplier * 100;
-		GameManager.Instance.multiplier = 0;	
+		GameManager.Instance.multiplier = 0;
+        CheckHighScore();
 	}
 
 	public void CheckHighScore(){
 		if(GameManager.Instance.score > PlayerPrefs.GetInt("HighScore", 0) && !GameManager.Instance.isExtra){
 			//set new highscore
 			PlayerPrefs.SetInt("HighScore", GameManager.Instance.score);
-			//update gameover menu to notify
+            //update gameover menu to notify
+            UIManager.Instance.UpdateHighScores();
 		}
 		if(GameManager.Instance.score > PlayerPrefs.GetInt("ExtraHighScore", 0)){
 			//set new highscore
 			PlayerPrefs.SetInt("ExtraHighScore", GameManager.Instance.score);
-			//update gameover menu to notify
-		}
+            //update gameover menu to notify
+            UIManager.Instance.UpdateHighScores();
+        }
 	}
 
 }
