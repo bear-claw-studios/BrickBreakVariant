@@ -12,9 +12,6 @@ public class Rotator : MonoBehaviour
     //Anything below this seems a bit pointless for sensitivity
     private float baseRotateSpeed = 0.25f;
     
-
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +22,7 @@ public class Rotator : MonoBehaviour
     void Update()
     {
         float input = Input.GetAxis("Horizontal");
-        Touch touchInput = Input.GetTouch(0);
+        //Touch touchInput = Input.GetTouch(0);
 
         if(input != 0.0f)
         {
@@ -64,7 +61,7 @@ public class Rotator : MonoBehaviour
         rotateSpeed = baseRotateSpeed + speed;
     }
     */
-
+    
     void OnMouseDown()
     {    
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
@@ -81,8 +78,15 @@ public class Rotator : MonoBehaviour
         pos = Input.mousePosition - pos;
         float ang = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - baseAngle;
         if(reverse)
-            transform.rotation = Quaternion.AngleAxis(-ang, Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(ang, Vector3.back);
         else
             transform.rotation = Quaternion.AngleAxis(ang, Vector3.forward);
+
+        AudioManager.Instance.isRotating = true;
+    }
+
+    private void OnMouseUp()
+    {
+        AudioManager.Instance.isRotating = false;
     }
 }
