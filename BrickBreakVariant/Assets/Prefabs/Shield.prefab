@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 462359233348147709}
   - component: {fileID: 4863769635763519904}
   - component: {fileID: 5842314112664033227}
+  - component: {fileID: 128091339944527804}
+  - component: {fileID: 939805124354192720}
   m_Layer: 0
-  m_Name: brick_center
-  m_TagString: Untagged
+  m_Name: Shield
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,3 +80,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &128091339944527804
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134127951345739518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -4661986255777399805, guid: b28db9aa8d8f1df488789aa09ae9a6b3, type: 3}
+--- !u!114 &939805124354192720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134127951345739518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c13109a57b2461599e5829219fd0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

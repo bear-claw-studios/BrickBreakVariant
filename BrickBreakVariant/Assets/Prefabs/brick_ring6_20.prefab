@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 3934983055935801734}
   - component: {fileID: 1563409192079846413}
   - component: {fileID: 4571774843822433637}
+  - component: {fileID: 1719784357980005454}
+  - component: {fileID: 8203549571822247009}
+  - component: {fileID: 6144156517799985199}
   m_Layer: 0
   m_Name: brick_ring6_20
-  m_TagString: Untagged
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,3 +81,50 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1719784357980005454
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261267226083971866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 7637348120444546413, guid: b28db9aa8d8f1df488789aa09ae9a6b3, type: 3}
+--- !u!114 &8203549571822247009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261267226083971866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc6e569fd98441ecab7ee3918185995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  isActive: 0
+  isFade: 0
+  isMatch: 0
+  toughness: 1
+  fadeTime: 2
+  blue: 0
+  green: 0
+--- !u!114 &6144156517799985199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261267226083971866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cc0b474fd154d5a8147222544387e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gc: {fileID: 0}
