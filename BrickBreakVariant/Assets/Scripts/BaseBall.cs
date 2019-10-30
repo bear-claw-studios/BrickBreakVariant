@@ -35,11 +35,11 @@ public class BaseBall : MonoBehaviour
         void Update()
     {
         // Debug.Log(rb.velocity.magnitude);
-        // Touch touchInput;
-        // if(Input.touchCount == 2)
-        // {
-        //     StartCoroutine(NewVel());
-        // }
+         Touch touchInput;
+         if(Input.touchCount == 2)
+         {
+             StartCoroutine(NewVel());
+         }
 
 		if (Input.GetKeyDown(KeyCode.F)){
             StartCoroutine(NewVel());
