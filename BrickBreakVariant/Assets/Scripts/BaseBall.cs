@@ -88,6 +88,8 @@ public class BaseBall : MonoBehaviour
         } else if(collision.gameObject.CompareTag("Brick")){
             GameManager.Instance.multiplier++;
             wallHit = 0;
+            //activate camera shake
+            GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>().Trigger();
         } else if(collision.gameObject.CompareTag("Ball")){
             wallHit = 0;
         } else if(collision.gameObject.CompareTag("Shield")){
