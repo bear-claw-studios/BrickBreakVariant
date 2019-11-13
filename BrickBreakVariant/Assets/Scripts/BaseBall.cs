@@ -85,6 +85,7 @@ public class BaseBall : MonoBehaviour
             GameManager.Instance.hyperSpeed = false;
             GameManager.Instance.totalSpeedTime = GameManager.Instance.speedTime;
             GameManager.Instance.speedTimer = 0;
+            // UIManager.Instance.StartCoroutine("DeathFlash");
         } else if(collision.gameObject.CompareTag("Brick")){
             GameManager.Instance.multiplier++;
             wallHit = 0;

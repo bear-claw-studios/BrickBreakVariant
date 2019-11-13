@@ -14,6 +14,7 @@ public class BrickController : MonoBehaviour
     public bool isFade = false;
     public bool isMatch = false;
     public int toughness = 1;
+    public string color;
 
     //For Fade
     public float fadeTime = 2f;

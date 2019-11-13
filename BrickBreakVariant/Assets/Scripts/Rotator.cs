@@ -7,7 +7,7 @@ public class Rotator : MonoBehaviour
     private float baseAngle = 0.0f;
     public bool reverse;
 
-    /*
+
     public float rotateSpeed = 1.0f;
     //Anything below this seems a bit pointless for sensitivity
     private float baseRotateSpeed = 0.25f;
@@ -40,19 +40,19 @@ public class Rotator : MonoBehaviour
         }
         
         
-           if(touchInput.deltaPosition != Vector2.zero)
-           {
-               float x = touchInput.deltaPosition.x;
+        //    if(touchInput.deltaPosition != Vector2.zero)
+        //    {
+        //        float x = touchInput.deltaPosition.x;
 
-               if(x < 0.0f)
-               {
-                   transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
-               }
-               else if(x > 0.0f)
-               {
-                   transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
-               }
-           } 
+        //        if(x < 0.0f)
+        //        {
+        //            transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
+        //        }
+        //        else if(x > 0.0f)
+        //        {
+        //            transform.Rotate(0.0f, 0.0f, (x * rotateSpeed));
+        //        }
+        //    } 
         
     }
 
@@ -60,7 +60,7 @@ public class Rotator : MonoBehaviour
     {
         rotateSpeed = baseRotateSpeed + speed;
     }
-    */
+
     
     void OnMouseDown()
     {    

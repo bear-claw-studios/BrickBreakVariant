@@ -178,7 +178,7 @@ public class LevelLoader : MonoBehaviour
         new string[] {}, //isMatch-White
         new string[] {"N11", "N12", "N13", "N14", "N15", "N16", "N17", "N18",
                       "N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39", "N310", "N311", "N312",
-                      "N51", "N53", "N55", "N57", "N59", "N511", "N513", "N515", "N517", "N519"}, //toughness 0
+                      "N51", "N53", "N55", "N57", "N59", "N511", "N513", "N515", "N517"}, //toughness 0
         new string[] {}, //toughness 1
         new string[] {} //toughness 2
     };
@@ -237,7 +237,7 @@ public class LevelLoader : MonoBehaviour
     public string[][] six = {
         new string[] {}, //isFade
         new string[] {"N31", "N32", "N33", "N34", "N35", "N36", "N37", "N38", "N39", "N310", "N311", "N312"}, //isMatch-Black
-        new string[] {"R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615", "R616", "R617", "R618", "R619", "R620"}, //isMatch-White
+        new string[] {"R61", "R62", "R63", "R64", "R65", "R66", "R67", "R68", "R69", "R610", "R611", "R612", "R613", "R614", "R615", "R616", "R617", "R618", "R619", "R6 20"}, //isMatch-White
         new string[] {"R11", "R12", "R13", "R14"}, //toughness 0
         new string[] {"R15", "R16", "R17", "R18"}, //toughness 1
         new string[] {} //toughness 2

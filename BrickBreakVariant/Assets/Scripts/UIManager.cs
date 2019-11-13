@@ -18,6 +18,10 @@ public class UIManager : MonoBehaviour
 
     public Button exitButton;
 
+    //flash panel
+    public  CanvasGroup flashPanel;
+    public float flashDur = 1f;
+
     void Awake(){
         if (Instance == null) {
 			Instance = this;
@@ -36,6 +40,9 @@ public class UIManager : MonoBehaviour
         gameOverMenu.SetActive(false);
         quitMenu.SetActive(false);
         UpdateHighScores();
+        flashPanel.interactable = false;
+        flashPanel.blocksRaycasts = false;
+        flashPanel.alpha = 0f;
     }
 
     void Update(){
@@ -154,5 +161,14 @@ public class UIManager : MonoBehaviour
         extraHighScore.text = "Help High Score: " + PlayerPrefs.GetInt("ExtraHighScore").ToString();
         goHighScore.text = "No Help High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
         goExtraHighScore.text = "Help High Score: " + PlayerPrefs.GetInt("ExtraHighScore").ToString();
+    }
+
+    public IEnumerator DeathFlash(){
+        float countdown = flashDur;
+        for(float t = flashDur; t > 0f; t -= Time.deltaTime){
+            flashPanel.alpha = t;
+            yield return null;
+        }
+        flashPanel.alpha = 0;           
     }
 }

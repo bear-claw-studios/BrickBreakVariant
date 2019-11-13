@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
 		} else if(GameManager.Instance.numBalls <= 0 && GameManager.Instance.activeGame){
 			GameManager.Instance.activeGame = false;
 			GameManager.Instance.lives--;
+			UIManager.Instance.StartCoroutine("DeathFlash");
 			StartCoroutine(Respawn());
 		}
 	}
@@ -58,17 +59,23 @@ public class GameController : MonoBehaviour
 		var balls = GameObject.FindGameObjectsWithTag("Ball");
 		if(GameManager.Instance.greenBall) {
 			for(var i = 0; i < balls.Length; i++){
+				//change ball color
 				rend = balls[i].GetComponent<Renderer>();
 				rend.material.SetColor("_Color", Color.blue);
 				rend.material.SetColor("_EmissionColor", Color.blue);
+				//change emission color
+				balls[i].GetComponent<ParticleController>().ChangeParticle("blue");
 			}
 			GameManager.Instance.greenBall = false; 
 			GameManager.Instance.blueBall = true;
 		} else if(GameManager.Instance.blueBall) {
 			for(var i = 0; i < balls.Length; i++){
+				//change ball color
 				rend = balls[i].GetComponent<Renderer>();
 				rend.material.SetColor("_Color", Color.green);
 				rend.material.SetColor("_EmissionColor", Color.green);
+				//change emission color
+				balls[i].GetComponent<ParticleController>().ChangeParticle("green");
 			}
 			GameManager.Instance.greenBall = true; 
 			GameManager.Instance.blueBall = false;

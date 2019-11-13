@@ -31,6 +31,7 @@ public class BaseBrick : MonoBehaviour
                 color.a = 1f;
                 rend.material.color = color;
                 rend.material.SetColor("_EmissionColor", color);
+                brick.color = "green";
             } else {
                 Color color = rend.material.color;
                 color.r = 0f; 
@@ -39,6 +40,7 @@ public class BaseBrick : MonoBehaviour
                 color.a = 1f;
                 rend.material.color = color;
                 rend.material.SetColor("_EmissionColor", color);
+                brick.color = "blue";
             }
         } else {
             if (brick.toughness == 0) {
@@ -48,6 +50,7 @@ public class BaseBrick : MonoBehaviour
                 color.b = 0f;
                 rend.material.color = color; 
                 rend.material.SetColor("_EmissionColor", color);
+                brick.color = "red";
             }
             if (brick.toughness == 1) {
                 Color color = rend.material.color;
@@ -56,6 +59,7 @@ public class BaseBrick : MonoBehaviour
                 color.b = 0f; 
                 rend.material.color = color; 
                 rend.material.SetColor("_EmissionColor", color);
+                brick.color = "orange";
             }
             if (brick.toughness == 2) {
                 Color color = rend.material.color;
@@ -64,6 +68,7 @@ public class BaseBrick : MonoBehaviour
                 color.b = 0.016f; 
                 rend.material.color = color; 
                 rend.material.SetColor("_EmissionColor", color);
+                brick.color = "yellow";
             }
         }
         
@@ -95,6 +100,8 @@ public class BaseBrick : MonoBehaviour
             } else {
                 collision.gameObject.GetComponent<BallAudio>().ballContact("bounce");
             }
+            //trigger sparks on
+            collision.gameObject.GetComponentInChildren<SparkController>().TriggerSpark(brick.color);    
         }
     }
 
